@@ -107,33 +107,29 @@
         </section>
 
         <section>
-            <h2>Our Services</h2>
+            <h2><i class="fa-solid fa-angles-right"></i> OUR PROMOTIONS <i class="fa-solid fa-angles-right fa-rotate-180"></i></h2>
 
             <ul class="services">
                 <li class="card-large card-dark card-wide" id="serv-groom">
-                    <div class="card-image"><img src="https://ouch-cdn2.icons8.com/T11rfGmMKgcStJyAFKNgtOfE79cadabx0DVMnvzA9Pk/rs:fit:368:313/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvNDQx/LzFlYWU4MWY3LWQ1/ZjYtNDM2Ny1hZjM5/LWVmNTFmMGM5Njk4/MS5wbmc.png"></div>
+                    <div class="card-image"><img src="img/discount_freeship.png"></div>
                     <ul>
-                        Dog Grooming<span class="subtitle">Tail-wagging transformations are our specialty.</span>
-                        <li><a href="#">Coat Care</a><span>$80</span></li>
-                        <li><a href="#">Nail Care</a><span>$16</span></li>
-                        <li><a href="#">Doggie Deluxe Spa Day</a><span>$160</span></li>
-                        <button class="btn-filled-dark"><span class="material-symbols-outlined">
-                                calendar_month
-                            </span>Book Now</button>
+                        Free shipping<span class="subtitle">We will provide free shipping for the following orders</span>
+                        <li><a>From</a><span>$30</span></li>
+                        <li><a>Quantity</a><span>over 1</span></li>
+                        <li><a>Area</a><span>Nationwide</span></li>
+                        <button class="btn-filled-dark"><i class="fa-regular fa-circle-down"></i></i>Add To Cart</button>
 
                     </ul>
 
 
                 </li>
                 <li class="card-large card-dark card-wide" id="serv-board">
-                    <div class="card-image"><img src="https://ouch-cdn2.icons8.com/F5Ea1suZtMYimKDkJr0CJLO_1bju6-bTyT1EuDKEg8s/rs:fit:368:254/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvMjcx/LzVjMzE4NWM0LWZh/NTMtNGQ1OS05ZTM2/LTZjYzBhNGU3ODg0/NC5wbmc.png"></div>
+                    <div class="card-image"><img src="img/discount_30.png"></div>
                     <ul>
-                        Dog Boarding<span class="subtitle">Where fun and care never take a day off.</span>
-                        <li><a href="#">Doggie Daycare</a><span>$80</span></li>
-                        <li><a href="#">Short Term Boarding</a><span>$80</span></li>
-                        <button class="btn-filled-dark"><span class="material-symbols-outlined">
-                                calendar_month
-                            </span>Book Now</button>
+                        30% discount<span class="subtitle">30% discount is applied when the order meets the following conditions</span>
+                        <li><a>Quantity</a><span>over 2</span></li>
+                        <li><a>Product Reviews</a><span>over 3</span></li>
+                        <button class="btn-filled-dark"><i class="fa-regular fa-circle-down"></i>Add To Cart</button>
                     </ul>
 
                 </li>
@@ -143,55 +139,18 @@
         <section id="locate">
 
             <div>
-                <h2>Location &amp; Hours</h2>
-                <p>Our knowledgeable and friendly staff is always ready to assist you in making the best choices for your furry, feathered, or finned friends.</p>
+                <h2>Location &amp; Contact</h2>
+                <p>Our knowledgeable and friendly staff is always ready to assist you in making the best choices for your phone.</p>
                 <div class="btn-group">
                     <button class="btn-filled-dark"><span class="material-symbols-outlined">
                             pin_drop
-                        </span>Find a Store</button>
+                        </span><a style="color: white" href="https://www.google.com/maps/place/Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+S%C6%B0+ph%E1%BA%A1m+K%E1%BB%B9+thu%E1%BA%ADt+Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh/@10.8506377,106.7693382,17z/data=!3m1!4b1!4m6!3m5!1s0x31752763f23816ab:0x282f711441b6916f!8m2!3d10.8506324!4d106.7719131!16s%2Fm%2F02pz17z?entry=ttu">
+                            Find a Store</a></button>
                     <button class="btn-outline-dark btn-hover-color"><span class="material-symbols-outlined">
                             contact_support
-                        </span> Contact Us</button>
+                        </span> <a href="https://www.facebook.com/profile.php?id=100008830505221">Contact Us</a></button>
                 </div>
             </div>
         </section>
-
-        <footer>
-
-            <ul>
-                Products
-                <li><a href="#">Food &amp; Treats</a></li>
-                <li><a href="#">Toys</a></li>
-                <li><a href="#">Beds &amp; Furniture</a></li>
-                <li><a href="#">Outdoor Supplies</a></li>
-                <li><a href="#">Clothing</a></li>
-                <li><a href="#">Aquariums</a></li>
-                <li><a href="#">Rocks &amp; Decorations</a></li>
-            </ul>
-
-            <ul>
-                Shop by Pet
-                <li><a href="#">Dogs</a></li>
-                <li><a href="#">Cats</a></li>
-                <li><a href="#">Birds</a></li>
-                <li><a href="#">Fish</a></li>
-            </ul>
-
-
-            <ul>
-                Our Services
-                <li><a href="#">Grooming</a></li>
-                <li><a href="#">Boarding</a></li>
-            </ul>
-            <ul>
-                Our Company
-                <li><a href="#">Locations &amp; Hours</a></li>
-                <li><a href="#">About Us</a></li>
-            </ul>
-
-
-        </footer>
-        <!-- partial -->
-        <script  src="js/Home.js"></script>
     </body>
 </html>
