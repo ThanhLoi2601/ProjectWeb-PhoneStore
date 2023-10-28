@@ -7,9 +7,6 @@ body{
     margin: 0;
     padding: 0;
 }
-i {
-    margin-right: 10px;
-}
 /*----------bootstrap-navbar-css------------*/
 .navbar-logo{
     padding: 15px;
@@ -71,8 +68,6 @@ i {
     height: 100%;
     top: 0px;
     left: 0px;
-    transition-duration:0.6s;
-    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     background-color: #fff;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -164,4 +159,11 @@ i {
         bottom: -25px;
         left: -25px;
     }
+}
+header {
+    width: 100%;
+    height: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }

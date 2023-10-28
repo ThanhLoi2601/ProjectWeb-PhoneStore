@@ -27,6 +27,7 @@ function test(){
 			"width": activeWidthNewAnimWidth + "px"
 		});
 	});
+        
 }
 $(document).ready(function(){
 	setTimeout(function(){ test(); });
@@ -48,7 +49,7 @@ jQuery(document).ready(function($){
 
 	// Account for home page with empty path
 	if ( path == '' ) {
-		path = 'index.html';
+		path = 'index.jsp';
 	}
 
 	var target = $('#navbarSupportedContent ul li a[href="'+path+'"]');
