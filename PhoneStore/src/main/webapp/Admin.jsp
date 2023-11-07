@@ -64,7 +64,7 @@
                     </button>
                 </div>
             </div>
-            <%@include file="admin_account.jsp" %>
+            <%@include file="admin_sales.jsp" %>
         </div>
         <script src="js/Admin.js"></script>
     </body>
