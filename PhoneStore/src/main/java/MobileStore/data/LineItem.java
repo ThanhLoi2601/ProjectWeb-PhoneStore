@@ -4,17 +4,32 @@
  */
 package MobileStore.data;
 
+import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 /**
  *
  * @author DELL
  */
-public class LineItem {
+@Entity
+public class LineItem implements Serializable {
+    
+    @Id
+    @OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     private Product item;
+    
     private int quanlity;
 
     public LineItem(Product item, int quanlity) {
         this.item = item;
         this.quanlity = quanlity;
+    }
+
+    public LineItem() {
     }
 
     public Product getItem() {

@@ -4,25 +4,34 @@
  */
 package MobileStore.data;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
  * @author DELL
  */
-public class Customer {
+@Entity
+public class User implements Serializable {
 
-    private Long customerID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     private String name;
-    private String username;
     private String email;
     private String address;
     private String phonenumber;
 
-    public Long getCustomerID() {
-        return customerID;
+    public Long getID() {
+        return id;
     }
 
-    public void setCustomerID(Long customerID) {
-        this.customerID = customerID;
+    public void setID(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -31,14 +40,6 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {
@@ -65,13 +66,14 @@ public class Customer {
         this.phonenumber = phonenumber;
     }
 
-    public Customer(Long customerID, String name, String username, String email, String address, String phonenumber) {
-        this.customerID = customerID;
+    public User(String name, Account account, String email, String address, String phonenumber) {
         this.name = name;
-        this.username = username;
         this.email = email;
         this.address = address;
         this.phonenumber = phonenumber;
     }
-    
+
+    public User() {
+    }
+
 }

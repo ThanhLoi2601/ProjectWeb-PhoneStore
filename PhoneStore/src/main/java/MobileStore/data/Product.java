@@ -4,18 +4,46 @@
  */
 package MobileStore.data;
 
+import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 /**
  *
  * @author DELL
  */
-public class Product {
+@Entity
+public class Product implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productID;
+    
     private String name;
     private Boolean status;
+    
+    @ManyToOne
     private ProductType type;
+    
     private int sale;
     private int stock;
     private String information;
+    private Float price;
+
+    public Product() {
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
 
     public Long getProductID() {
         return productID;
@@ -73,13 +101,14 @@ public class Product {
         this.information = information;
     }
 
-    public Product(Long productID, String name, Boolean status, ProductType type, int sale, int stock, String information) {
-        this.productID = productID;
+    public Product(String name, Boolean status, ProductType type, int sale, int stock, String information, Float price) {
         this.name = name;
         this.status = status;
         this.type = type;
         this.sale = sale;
         this.stock = stock;
         this.information = information;
+        this.price = price;
     }
+
 }

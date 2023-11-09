@@ -4,42 +4,58 @@
  */
 package MobileStore.data;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
  * @author DELL
  */
-public class ProductType {
-    private Long idType;
-    private String nameType;
-    private String character;
+@Entity
+public class ProductType implements Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    public ProductType(Long idType, String nameType, String character) {
-        this.idType = idType;
-        this.nameType = nameType;
-        this.character = character;
+    private String typeName;
+    private String information;;
+
+    public String getInformation() {
+        return information;
     }
 
-    public Long getIdType() {
-        return idType;
+    public void setInformation(String information) {
+        this.information = information;
+    }
+    
+
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setIdType(Long idType) {
-        this.idType = idType;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+    
+    
+    public Long getId() {
+        return id;
     }
 
-    public String getNameType() {
-        return nameType;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setNameType(String nameType) {
-        this.nameType = nameType;
+    public ProductType() {
     }
 
-    public String getCharacter() {
-        return character;
+    public ProductType(String typeName, String information) {
+        this.typeName = typeName;
+        this.information = information;
     }
 
-    public void setCharacter(String character) {
-        this.character = character;
-    }
 }
