@@ -39,7 +39,7 @@ public class test extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         User u = new User("Alenk", "thanhloi@gmail.com", "TPHCM", "09873682991", Boolean.FALSE);
         Account a = new Account("alenk2601", "thanhloi", u);
-        AccountDB.insert(a);
+        UserDB.insert(u);
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");

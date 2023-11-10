@@ -33,6 +33,7 @@ public class Product implements Serializable {
     private int stock;
     private String information;
     private Float price;
+    private String image;
 
     public Product() {
     }
@@ -101,6 +102,25 @@ public class Product implements Serializable {
         this.information = information;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Product(String name, Boolean status, ProductType type, int sale, int stock, String information, Float price, String image) {
+        this.name = name;
+        this.status = status;
+        this.type = type;
+        this.sale = sale;
+        this.stock = stock;
+        this.information = information;
+        this.price = price;
+        this.image = image;
+    }
+    
     public Product(String name, Boolean status, ProductType type, int sale, int stock, String information, Float price) {
         this.name = name;
         this.status = status;
