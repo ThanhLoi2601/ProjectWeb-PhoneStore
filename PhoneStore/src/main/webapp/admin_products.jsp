@@ -10,7 +10,10 @@
     <div class="app-content">
         <div class="app-content-header">
             <h1 class="app-content-headerText">Products</h1>
-            <button class="app-content-headerButton">Add Product</button>
+            <form action="AdminProduct" method="post">
+                <button class="app-content-headerButton">Add Product</button>
+                <input type="hidden" name="ManageProducts" value="add"/>">
+            </form>
         </div>
         <div class="app-content-actions">
             <input class="search-bar" placeholder="Search..." type="text">
@@ -93,15 +96,15 @@
                 <div class="product-cell sales"><span class="cell-label">Sales:</span>11</div>
                 <div class="product-cell stock"><span class="cell-label">Stock:</span>36</div>
                 <div class="product-cell price"><span class="cell-label">Price:</span>$560</div>
-                <div class="product-cell update"><span class="cell-label">Update:</span><button class="sort-button">
+                <a href="#" class="product-cell update" style="text-decoration: none;"><span class="cell-label">Update:</span><button class="sort-button">
                         <i class="fa-solid fa-pen-to-square"></i> 
-                    </button></div>
-                <div class="product-cell remove"><span class="cell-label">Remove:</span><button class="sort-button">
+                    </button></a>
+                <a href="#" class="product-cell remove" style="text-decoration: none;"><span class="cell-label">Remove:</span><button class="sort-button">
                         <i class="fa-solid fa-trash"></i> 
-                    </button></div>
-                <div class="product-cell comment"><span class="cell-label">Comment:</span><button class="sort-button">
+                    </button></a>
+                <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span><button class="sort-button">
                         <i class="fa-solid fa-comment-dots"></i> 
-                    </button></div>
+                    </button></a>
             </div>
             <div class="products-row">
                 <button class="cell-more-button">
@@ -119,16 +122,44 @@
                 <div class="product-cell sales"><span class="cell-label">Sales:</span>6</div>
                 <div class="product-cell stock"><span class="cell-label">Stock:</span>46</div>
                 <div class="product-cell price"><span class="cell-label">Price:</span>$710</div>
-                <div class="product-cell update"><span class="cell-label">Update:</span><button class="sort-button">
+                <a href="#" class="product-cell update" style="text-decoration: none;"><span class="cell-label">Update:</span><button class="sort-button">
                         <i class="fa-solid fa-pen-to-square"></i> 
-                    </button></div>
-                <div class="product-cell remove"><span class="cell-label">Remove:</span><button class="sort-button">
+                    </button></a>
+                <a href="#" class="product-cell remove" style="text-decoration: none;"><span class="cell-label">Remove:</span><button class="sort-button">
                         <i class="fa-solid fa-trash"></i> 
-                    </button></div>
-                <div class="product-cell comment"><span class="cell-label">Comment:</span><button class="sort-button">
+                    </button></a>
+                <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span><button class="sort-button">
                         <i class="fa-solid fa-comment-dots"></i> 
-                    </button></div>
+                    </button></a>
             </div>
+            
+            <%if (request.getAttribute("ManageProducts") != null && request.getAttribute("ManageProducts").equals("add")) { %>
+            <div class="products-row">
+                <button class="cell-more-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                </button>
+                <div class="product-cell image">
+                    <span><input placeholder="Name..." type="text" name="ProductName" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></span>
+                </div>
+                <div class="product-cell category"><span class="cell-label">Category:</span>Realme</div>
+                <div class="product-cell status-cell">
+                    <span class="cell-label">Status:</span>
+                    <button class="status disabled">Disabled</button>
+                </div>
+                <div class="product-cell sales"><span class="cell-label">Sales:</span>6</div>
+                <div class="product-cell stock"><span class="cell-label">Stock:</span>46</div>
+                <div class="product-cell price"><span class="cell-label">Price:</span>$710</div>
+                <a href="#" class="product-cell update" style="text-decoration: none;"><span class="cell-label">Update:</span><button class="sort-button">
+                        <i class="fa-solid fa-pen-to-square"></i> 
+                    </button></a>
+                <a href="#" class="product-cell remove" style="text-decoration: none;"><span class="cell-label">Remove:</span><button class="sort-button">
+                        <i class="fa-solid fa-trash"></i> 
+                    </button></a>
+                <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span><button class="sort-button">
+                        <i class="fa-solid fa-comment-dots"></i> 
+                    </button></a>
+            </div>
+            <% }%>
         </div>
     </div>
 </html>

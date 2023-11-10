@@ -8,6 +8,10 @@
         <servlet-name>AdminServlet</servlet-name>
         <servlet-class>MobileStore.Servlet.Admin.AdminServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminProductServlet</servlet-name>
+        <servlet-class>MobileStore.Servlet.Admin.AdminProductServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/Admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminProductServlet</servlet-name>
+        <url-pattern>/AdminProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
