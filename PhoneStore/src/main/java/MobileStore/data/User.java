@@ -25,6 +25,16 @@ public class User implements Serializable {
     private String email;
     private String address;
     private String phonenumber;
+    private Boolean isManager;
+
+    public Boolean getIsManager() {
+        return isManager;
+    }
+
+    public void setIsManager(Boolean isManager) {
+        this.isManager = isManager;
+    }
+    
 
     public Long getID() {
         return id;
@@ -66,11 +76,12 @@ public class User implements Serializable {
         this.phonenumber = phonenumber;
     }
 
-    public User(String name, Account account, String email, String address, String phonenumber) {
+    public User(String name, String email, String address, String phonenumber, Boolean isManager) {
         this.name = name;
         this.email = email;
         this.address = address;
         this.phonenumber = phonenumber;
+        this.isManager = isManager;
     }
 
     public User() {

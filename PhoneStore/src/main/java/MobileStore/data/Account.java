@@ -29,7 +29,7 @@ public class Account implements Serializable {
 
     private String password;
     
-    @OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @OneToOne //(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     private User user;
 
     public User getUser() {

@@ -4,10 +4,16 @@
  */
 package MobileStore.Servlet.Admin;
 
-import MobileStore.util.DBUtil;
+import MobileStore.DB.AccountDB;
+import MobileStore.DB.UserDB;
+import MobileStore.data.Account;
+import MobileStore.data.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.persistence.EntityManager;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,9 +35,11 @@ public class test extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException, NoSuchAlgorithmException {
         response.setContentType("text/html;charset=UTF-8");
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        User u = new User("Alenk", "thanhloi@gmail.com", "TPHCM", "09873682991", Boolean.FALSE);
+        Account a = new Account("alenk2601", "thanhloi", u);
+        AccountDB.insert(a);
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -58,7 +66,11 @@ public class test extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -72,7 +84,11 @@ public class test extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
