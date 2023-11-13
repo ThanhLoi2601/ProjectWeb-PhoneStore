@@ -36,6 +36,7 @@ public class Product implements Serializable {
     private String image;
 
     public Product() {
+        this.type = new ProductType();
     }
 
     public Float getPrice() {

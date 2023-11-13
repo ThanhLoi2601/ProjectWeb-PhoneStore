@@ -4,8 +4,11 @@
  */
 package MobileStore.Servlet.Admin;
 
+import MobileStore.DB.DiscountDB;
+import MobileStore.data.Discount;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,12 +22,16 @@ import javax.servlet.http.HttpSession;
 public class AdminServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String sidebar_list = request.getParameter("sidebar-list");
         HttpSession session = request.getSession();
         session.setAttribute("sidebar-list", sidebar_list);
         System.out.println(session.getAttribute("sidebar-list"));
+        if(sidebar_list.equals("Promotion")){
+            List<Discount> discounts = DiscountDB.selectAllDiscount();
+            session.setAttribute("discounts", discounts);
+        }
         String url = "/Admin.jsp";
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }

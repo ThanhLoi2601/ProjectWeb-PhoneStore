@@ -24,6 +24,10 @@ public class ProductType implements Serializable {
     private String typeName;
     private String information;;
 
+    public ProductType(String typeName) {
+        this.typeName = typeName;
+    }
+
     public String getInformation() {
         return information;
     }
