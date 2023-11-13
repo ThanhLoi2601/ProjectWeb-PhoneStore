@@ -5,7 +5,6 @@
 package MobileStore.Servlet.Admin;
 
 import MobileStore.data.Product;
-import MobileStore.data.ProductType;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +46,7 @@ public class AdminProductServlet extends HttpServlet {
             String stock = request.getParameter("stock");
             String price = request.getParameter("price");
             if (name != null || type != null || sales != null || stock != null || price != null) {
-                addproduct = new Product(name, status != null && status.equals("active"), new ProductType(type), Integer.parseInt(sales), Integer.parseInt(stock), name, Float.valueOf(price));
+               
             }
             HttpSession session = request.getSession();
             session.setAttribute("addproduct", addproduct);

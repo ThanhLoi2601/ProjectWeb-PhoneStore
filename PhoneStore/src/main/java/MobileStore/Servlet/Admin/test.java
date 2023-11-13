@@ -5,7 +5,9 @@
 package MobileStore.Servlet.Admin;
 
 import MobileStore.DB.DiscountDB;
+import MobileStore.DB.ProductDB;
 import MobileStore.data.Discount;
+import MobileStore.data.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
@@ -40,8 +42,10 @@ public class test extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, NoSuchAlgorithmException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        DiscountDB.insert(new Discount("25/12", 30, dateFormat.parse("2023-12-25"), dateFormat.parse("2023-12-30")));
+        //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        //DiscountDB.insert(new Discount("25/12", 30, dateFormat.parse("2023-12-25"), dateFormat.parse("2023-12-30")));
+        Product product = new Product("Galaxy A53",Boolean.TRUE, "Samsung", 100, 5, "ROM 64GB",Float.valueOf("15"),"img/Samsung/Samsung-Galaxy-A53.jpg");
+        ProductDB.insert(product);
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");

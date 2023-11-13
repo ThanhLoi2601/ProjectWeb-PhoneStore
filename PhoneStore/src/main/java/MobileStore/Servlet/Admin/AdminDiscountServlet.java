@@ -6,10 +6,7 @@ package MobileStore.Servlet.Admin;
 
 import MobileStore.DB.DiscountDB;
 import MobileStore.data.Discount;
-import MobileStore.data.Product;
-import MobileStore.data.ProductType;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

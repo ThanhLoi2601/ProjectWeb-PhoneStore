@@ -5,13 +5,10 @@
 package MobileStore.data;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 /**
  *
@@ -26,8 +23,7 @@ public class Product implements Serializable {
     private String name;
     private Boolean status;
     
-    @ManyToOne
-    private ProductType type;
+    private String type;
     
     private int sale;
     private int stock;
@@ -36,7 +32,6 @@ public class Product implements Serializable {
     private String image;
 
     public Product() {
-        this.type = new ProductType();
     }
 
     public Float getPrice() {
@@ -71,11 +66,11 @@ public class Product implements Serializable {
         this.status = status;
     }
 
-    public ProductType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(ProductType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -111,7 +106,8 @@ public class Product implements Serializable {
         this.image = image;
     }
 
-    public Product(String name, Boolean status, ProductType type, int sale, int stock, String information, Float price, String image) {
+    public Product(Long productID, String name, Boolean status, String type, int sale, int stock, String information, Float price, String image) {
+        this.productID = productID;
         this.name = name;
         this.status = status;
         this.type = type;
@@ -122,7 +118,20 @@ public class Product implements Serializable {
         this.image = image;
     }
     
-    public Product(String name, Boolean status, ProductType type, int sale, int stock, String information, Float price) {
+    
+
+    public Product(String name, Boolean status, String type, int sale, int stock, String information, Float price, String image) {
+        this.name = name;
+        this.status = status;
+        this.type = type;
+        this.sale = sale;
+        this.stock = stock;
+        this.information = information;
+        this.price = price;
+        this.image = image;
+    }
+    
+    public Product(String name, Boolean status, String type, int sale, int stock, String information, Float price) {
         this.name = name;
         this.status = status;
         this.type = type;

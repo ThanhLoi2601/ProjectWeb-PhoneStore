@@ -5,7 +5,9 @@
 package MobileStore.Servlet.Admin;
 
 import MobileStore.DB.DiscountDB;
+import MobileStore.DB.ProductDB;
 import MobileStore.data.Discount;
+import MobileStore.data.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -31,6 +33,9 @@ public class AdminServlet extends HttpServlet {
         if(sidebar_list.equals("Promotion")){
             List<Discount> discounts = DiscountDB.selectAllDiscount();
             session.setAttribute("discounts", discounts);
+        }else if (sidebar_list.equals("Products")){
+            List<Product> products = ProductDB.selectAllProduct();
+            session.setAttribute("products", products);
         }
         String url = "/Admin.jsp";
         getServletContext().getRequestDispatcher(url).forward(request, response);

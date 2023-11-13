@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <div class="app-content">
@@ -80,22 +81,23 @@
                 <div class="product-cell remove">Remove</div>
                 <div class="product-cell comment">Comment</div>
             </div>
-            <div class="products-row">
+            <c:forEach var="item" items="${products}">
+            <form class="products-row" action="AdminProduct" method="post">
                 <button class="cell-more-button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                 </button>
                 <div class="product-cell image">
-                    <img src="img/Samsung/Samsung-Galaxy-A53.jpg" alt="product">
-                    <span>Galaxy A53</span>
+                    <img src="${item.image}" alt="product">
+                    <span>${item.name}</span>
                 </div>
-                <div class="product-cell category"><span class="cell-label">Category:</span>Samsung</div>
+                <div class="product-cell category"><span class="cell-label">Category:</span>${item.type}</div>
                 <div class="product-cell status-cell">
                     <span class="cell-label">Status:</span>
-                    <button class="status active">Active</button>
+                    <span class="status active">${item.status == true ? 'Active' : 'Disabled'}</span>
                 </div>
-                <div class="product-cell sales"><span class="cell-label">Sales:</span>11</div>
-                <div class="product-cell stock"><span class="cell-label">Stock:</span>36</div>
-                <div class="product-cell price"><span class="cell-label">Price:</span>$560</div>
+                <div class="product-cell sales"><span class="cell-label">Sales:</span>${item.sale}</div>
+                <div class="product-cell stock"><span class="cell-label">Stock:</span>${item.stock}</div>
+                <div class="product-cell price"><span class="cell-label">Price:</span>$${item.price}</div>
                 <a href="#" class="product-cell update" style="text-decoration: none;"><span class="cell-label">Update:</span><button class="sort-button">
                         <i class="fa-solid fa-pen-to-square"></i> 
                     </button></a>
@@ -105,7 +107,8 @@
                 <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span><button class="sort-button">
                         <i class="fa-solid fa-comment-dots"></i> 
                     </button></a>
-            </div>
+            </form>
+            </c:forEach>
 
             <%if (request.getAttribute("ManageProducts") != null && request.getAttribute("ManageProducts").equals("add")) { %>
             <div class="products-row">
@@ -123,17 +126,7 @@
                         <option value="Samsung">Samsung</option>
                     </select>
                 </div>
-                <!--                <form class="product-cell status-cell" action="AdminProduct" method="post">
-                                    <span class="cell-label">Status:</span>
-                <%if (request.getAttribute("StatusProducts") != null && request.getAttribute("StatusProducts").equals("disabled")) {%>
-                <button class="status disabled">Disabled</button>
-                <input type="hidden" name="StatusProducts" value="active"/>
-                <%} else {%>
-                <button class="status active">Active</button>
-                <input type="hidden" name="StatusProducts" value="disabled"/>
-                <%}%>
-                <input type="hidden" name="ManageProducts" value="add"/>
-            </form>-->
+
                 <div class="product-cell status"><span class="cell-label">Status:</span>
                     <select placeholder="Category..." name="ProductType" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
                         <option value="active">Active</option>
