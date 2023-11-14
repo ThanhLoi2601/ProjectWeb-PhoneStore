@@ -10,10 +10,10 @@
 <html>
     <div class="app-content">
         <div class="app-content-header">
-            <h1 class="app-content-headerText">Products</h1>
+            <h1 class="app-content-headerText"><i class="fa-solid fa-shekel-sign"></i> PRODUCTS <i class="fa-solid fa-mobile-screen-button"></i></h1>
             <form action="AdminProduct" method="post">
                 <button class="app-content-headerButton">Add Product</button>
-                <input type="hidden" name="ManageProducts" value="add"/>">
+                <input type="hidden" name="ManageProducts" value="open_add"/>">
             </form>
         </div>
         <div class="app-content-actions">
@@ -78,80 +78,134 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
                     </button></div>
                 <div class="product-cell update">Update</div>
-                <div class="product-cell remove">Remove</div>
                 <div class="product-cell comment">Comment</div>
+                <div class="product-cell remove">Remove</div>
             </div>
             <c:forEach var="item" items="${products}">
-            <form class="products-row" action="AdminProduct" method="post">
-                <button class="cell-more-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                </button>
-                <div class="product-cell image">
-                    <img src="${item.image}" alt="product">
-                    <span>${item.name}</span>
-                </div>
-                <div class="product-cell category"><span class="cell-label">Category:</span>${item.type}</div>
-                <div class="product-cell status-cell">
-                    <span class="cell-label">Status:</span>
-                    <span class="status active">${item.status == true ? 'Active' : 'Disabled'}</span>
-                </div>
-                <div class="product-cell sales"><span class="cell-label">Sales:</span>${item.sale}</div>
-                <div class="product-cell stock"><span class="cell-label">Stock:</span>${item.stock}</div>
-                <div class="product-cell price"><span class="cell-label">Price:</span>$${item.price}</div>
-                <a href="#" class="product-cell update" style="text-decoration: none;"><span class="cell-label">Update:</span><button class="sort-button">
-                        <i class="fa-solid fa-pen-to-square"></i> 
-                    </button></a>
-                <a href="#" class="product-cell remove" style="text-decoration: none;"><span class="cell-label">Remove:</span><button class="sort-button">
-                        <i class="fa-solid fa-trash"></i> 
-                    </button></a>
-                <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span><button class="sort-button">
-                        <i class="fa-solid fa-comment-dots"></i> 
-                    </button></a>
-            </form>
+                <form action="AdminProduct" method="post">
+                    <div class="products-row" action="AdminProduct" method="post">
+                        <button class="cell-more-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                        </button>
+                        <%if (request.getAttribute("ManageProducts") != null && request.getAttribute("ManageProducts").equals("open_update")) { %>
+                        <div class="product-cell image">
+                            <span><input placeholder="Name..." type="text" name="ProductName" value="${item.name}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></span>
+                        </div>
+                        <div class="product-cell category"><span class="cell-label">Category:</span>
+                            <select placeholder="Category..." name="ProductType" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
+                                <option value="Iphone" ${item.type == 'Iphone' ? 'selected' : ''}>Iphone</option>
+                                <option value="Xiaomi" ${item.type == 'Xiaomi' ? 'selected' : ''}>Xiaomi</option>
+                                <option value="Realme" ${item.type == 'Realme' ? 'selected' : ''}>Realme</option>
+                                <option value="Samsung" ${item.type == 'Samsung' ? 'selected' : ''}>Samsung</option>
+                            </select>
+                        </div>
+
+                        <div class="product-cell status"><span class="cell-label">Status:</span>
+                            <select placeholder="Status..." name="status" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
+                                <option value="active" ${item.status == true ? 'selected' : ''}>Active</option>
+                                <option value="disabled" ${item.status == false ? 'selected' : ''}>Disabled</option>
+                            </select>
+                        </div>   
+                        <div class="product-cell sales"><span class="cell-label">Sales:</span><input placeholder="Sales..." type="number" name="sales" value="${item.sale}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
+                        <div class="product-cell stock"><span class="cell-label">Stock:</span><input placeholder="Stock..." type="number" name="stock" value="${item.stock}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
+                        <div class="product-cell price"><span class="cell-label">Price:</span>$<input placeholder="Price..." type="number" name="price" value="${item.price}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
+                        <div class="product-cell update" style="text-decoration: none;"><span class="cell-label">Update:</span><button class="sort-button">
+                                <i class="fa-solid fa-pen-to-square"></i> 
+                            </button></div>
+                        <input type="hidden" name="ManageProducts" value="update"/>
+                        <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Image:</span>
+                            <span class="sort-button">
+                                <i class="fa-solid fa-images"></i>  
+                            </span></a>
+                            <% } else {%>
+                        <div class="product-cell image">
+                            <img src="${item.image}" alt="product">
+                            <span>${item.name}</span>
+                        </div>
+                        <div class="product-cell category"><span class="cell-label">Category:</span>${item.type}</div>
+                        <div class="product-cell status-cell">
+                            <span class="cell-label">Status:</span>
+                            <span class="status ${item.status == true ? 'active' : 'disabled'}">${item.status == true ? 'Active' : 'Disabled'}</span>
+                        </div>
+                        <div class="product-cell sales"><span class="cell-label">Sales:</span>${item.sale}</div>
+                        <div class="product-cell stock"><span class="cell-label">Stock:</span>${item.stock}</div>
+                        <div class="product-cell price"><span class="cell-label">Price:</span>$${item.price}</div>
+                        <input type="hidden" name="ManageProducts" value="open_update"/>
+                        <div class="product-cell update" style="text-decoration: none;"><span class="cell-label">Update:</span><button class="sort-button">
+                                <i class="fa-solid fa-pen-to-square"></i> 
+                            </button></div>
+                        <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span>
+                            <span class="sort-button">
+                                <i class="fa-solid fa-comment-dots"></i> 
+                            </span></a>
+                            <% }%>        
+                        <input type="hidden" name="productID" value="${item.productID}"/>
+                        <a href="AdminProduct?ManageProducts=remove&amp;productID=<c:out value="${item.productID}"/>" class="product-cell remove" style="text-decoration: none;"><span class="cell-label">Remove:</span>
+                            <span class="sort-button">
+                                <i class="fa-solid fa-trash"></i> 
+                            </span></a>    
+                    </div>
+                    <%if (request.getAttribute("ManageProducts") != null && request.getAttribute("ManageProducts").equals("open_update")) { %>
+                    <div class="products-row">
+                        <span style="font-size: 14px; margin-left:16px; border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
+                            <i class="fa-solid fa-arrow-right"></i>  Information:</span>
+                        <input placeholder="Information..." type="text" name="information" value="${item.information}" style="font-size: 14px; width: 700px;margin-left:16px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
+                    </div>
+                    <% } %>
+                </form>
             </c:forEach>
 
-            <%if (request.getAttribute("ManageProducts") != null && request.getAttribute("ManageProducts").equals("add")) { %>
-            <div class="products-row">
-                <button class="cell-more-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                </button>
-                <div class="product-cell image">
-                    <span><input placeholder="Name..." type="text" name="ProductName" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></span>
-                </div>
-                <div class="product-cell category"><span class="cell-label">Category:</span>
-                    <select placeholder="Category..." name="ProductType" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
-                        <option value="Iphone">Iphone</option>
-                        <option value="Xiaomi">Xiaomi</option>
-                        <option value="Realme">Realme</option>
-                        <option value="Samsung">Samsung</option>
-                    </select>
-                </div>
-
-                <div class="product-cell status"><span class="cell-label">Status:</span>
-                    <select placeholder="Category..." name="ProductType" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
-                        <option value="active">Active</option>
-                        <option value="disabled">Disabled</option>
-                    </select>
-                </div>   
-                <div class="product-cell sales"><span class="cell-label">Sales:</span><input placeholder="Sales..." type="number" name="sales" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
-                <div class="product-cell stock"><span class="cell-label">Stock:</span><input placeholder="Stock..." type="number" name="stock" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
-                <div class="product-cell price"><span class="cell-label">Price:</span>$<input placeholder="Price..." type="number" name="price" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
-                <a href="#" class="product-cell update" style="text-decoration: none;"><span class="cell-label">Confirm:</span><button class="sort-button">
-                        CONFIRM
-                    </button></a>
-                <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Image:</span><button class="sort-button">
-                        IMAGE   
-                    </button></a>
-                <form action="AdminProduct" method="post" class="product-cell remove">
-                    <span class="cell-label">Remove:</span><button class="sort-button">
-                        <i class="fa-solid fa-trash"></i> 
+            <%if (request.getAttribute("ManageProducts") != null && request.getAttribute("ManageProducts").equals("open_add")) { %>
+            <form action="AdminProduct" method="post">
+                <div class="products-row">
+                    <button class="cell-more-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                     </button>
-                    <input type="hidden" name="ManageProducts" value="remove"/>
-                </form>
-            </div>
-            <div class="products-row">
-                <input placeholder="Information..." type="text" name="information" style="width: 1200px;margin-left:16px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
-            </div>
+                    <div class="product-cell image">
+                        <span><input placeholder="Name..." type="text" name="ProductName" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></span>
+                    </div>
+                    <div class="product-cell category"><span class="cell-label">Category:</span>
+                        <select placeholder="Category..." name="ProductType" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
+                            <option value="Iphone">Iphone</option>
+                            <option value="Xiaomi">Xiaomi</option>
+                            <option value="Realme">Realme</option>
+                            <option value="Samsung">Samsung</option>
+                        </select>
+                    </div>
+
+                    <div class="product-cell status"><span class="cell-label">Status:</span>
+                        <select placeholder="Status..." name="status" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
+                            <option value="active">Active</option>
+                            <option value="disabled">Disabled</option>
+                        </select>
+                    </div>   
+                    <div class="product-cell sales"><span class="cell-label">Sales:</span><input placeholder="Sales..." type="number" name="sales" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
+                    <div class="product-cell stock"><span class="cell-label">Stock:</span><input placeholder="Stock..." type="number" name="stock" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
+                    <div class="product-cell price"><span class="cell-label">Price:</span>$<input placeholder="Price..." type="number" name="price" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
+                    <div class="product-cell update"><span class="cell-label">Confirm:</span><button class="sort-button">
+                        CONFIRM
+                    </button></div>
+                    <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span>
+                            <span class="sort-button">
+                                <i class="fa-solid fa-comment-dots"></i> 
+                            </span></a>
+                    <input type="hidden" name="ManageProducts" value="add"/>
+                    <a href="Admin.jsp" class="product-cell remove" style="text-decoration: none;"><span class="cell-label">Remove:</span>
+                        <span class="sort-button">
+                            <i class="fa-solid fa-trash"></i> 
+                        </span>
+                    </a>
+                </div>
+                <div class="products-row">
+                    <span style="font-size: 14px; margin-left:16px; border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
+                        <i class="fa-solid fa-arrow-right"></i>  Information:</span>
+                    <input placeholder="Information..." type="text" name="information" style="font-size: 14px; width: 700px;margin-left:16px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
+                    <div class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Image:</span>
+                        <input class="sort-button" type="file" name= "image" >
+<!--                        <i class="fa-solid fa-images"></i>   -->
+                    </div>
+                </div>
+            </form>
             <% }%>
         </div>
     </div>

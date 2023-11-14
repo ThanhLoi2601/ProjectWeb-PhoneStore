@@ -4,10 +4,14 @@
  */
 package MobileStore.Servlet.Admin;
 
+import MobileStore.DB.AccountDB;
 import MobileStore.DB.DiscountDB;
 import MobileStore.DB.ProductDB;
+import MobileStore.DB.UserDB;
+import MobileStore.data.Account;
 import MobileStore.data.Discount;
 import MobileStore.data.Product;
+import MobileStore.data.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
@@ -44,14 +48,20 @@ public class test extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         //DiscountDB.insert(new Discount("25/12", 30, dateFormat.parse("2023-12-25"), dateFormat.parse("2023-12-30")));
-        Product product = new Product("Galaxy A53",Boolean.TRUE, "Samsung", 100, 5, "ROM 64GB",Float.valueOf("15"),"img/Samsung/Samsung-Galaxy-A53.jpg");
-        ProductDB.insert(product);
+//        Product product = new Product("Galaxy A53",Boolean.TRUE, "Samsung", 100, 5, "ROM 64GB",Float.valueOf("15"),"img/Samsung/Samsung-Galaxy-A53.jpg");
+//        ProductDB.insert(product);
+        User user = new User("Loi", "thanhloi@gmail", "TPHCM", "08548716662", Boolean.FALSE);
+        if (UserDB.emailExists(user.getEmail()) == false) {
+            UserDB.insert(user);
+        }
+        Account account = new Account("thanhloi", "12345", user);
+        AccountDB.insert(account);
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet test</title>");            
+            out.println("<title>Servlet test</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet test at " + request.getContextPath() + "</h1>");

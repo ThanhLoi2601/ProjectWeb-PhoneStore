@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,13 +25,23 @@ import javax.persistence.OneToOne;
 public class Account implements Serializable {
 
     @Id
-    @GeneratedValue( strategy=GenerationType.AUTO )
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     private String username;
 
     private String password;
-    
+
     @OneToOne //(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     private User user;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return user;
@@ -53,6 +64,10 @@ public class Account implements Serializable {
     }
 
     public void setPassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        setPass(password);
+    }
+
+    private void setPass(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         digest.reset();
 
@@ -68,7 +83,14 @@ public class Account implements Serializable {
     public Account(String username, String password, User user) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         this.username = username;
         this.user = user;
-        this.setPassword(password);
+        this.setPass(password);
+    }
+
+    public Account(Long id, String username, String password, User user) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.user = user;
     }
 
     public Account() {

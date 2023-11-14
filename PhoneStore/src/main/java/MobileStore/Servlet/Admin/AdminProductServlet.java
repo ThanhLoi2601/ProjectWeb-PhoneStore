@@ -4,8 +4,13 @@
  */
 package MobileStore.Servlet.Admin;
 
+import MobileStore.DB.ProductDB;
 import MobileStore.data.Product;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +27,18 @@ public class AdminProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = "/Admin.jsp";
+        HttpSession session = request.getSession();
+        String ManageProducts = request.getParameter("ManageProducts");
+        System.out.println(ManageProducts);
+        if (ManageProducts != null && ManageProducts.equals("remove")) {
+            request.setAttribute("ManageProducts", ManageProducts);
+            String IDUpdate = request.getParameter("productID");
+            Product product = ProductDB.selectIDProduct(IDUpdate);
+            System.out.println(product.getName());
+            ProductDB.delete(product);
+            List<Product> products = ProductDB.selectAllProduct();
+            session.setAttribute("products", products);
+        }
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
@@ -29,27 +46,40 @@ public class AdminProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = "/Admin.jsp";
-
+        HttpSession session = request.getSession();
         String ManageProducts = request.getParameter("ManageProducts");
         if (ManageProducts != null) {
             request.setAttribute("ManageProducts", ManageProducts);
-        }
+            if (ManageProducts.equals("update") || ManageProducts.equals("add")) {
+                String IDUpdate = request.getParameter("productID");
+                String name = request.getParameter("ProductName");
+                String type = request.getParameter("ProductType");
+                String status_str = request.getParameter("status");
+                Boolean status = false;
+                if (status_str.equals("active"))
+                    status = true;
+                String sales = request.getParameter("sales");
+                String stock = request.getParameter("stock");
+                String price = request.getParameter("price");
+                String information = request.getParameter("information");
+                
+                Product product;
+                System.out.println(IDUpdate + " " + name + " " + type + " " + status + " " + price);
 
-        String StatusProducts = request.getParameter("StatusProducts");
-        if (StatusProducts != null) {
-            request.setAttribute("StatusProducts", StatusProducts);
-            Product addproduct = null;
-            String name = request.getParameter("ProductName");
-            String type = request.getParameter("ProductType");
-            String status = request.getParameter("StatusProducts");
-            String sales = request.getParameter("sales");
-            String stock = request.getParameter("stock");
-            String price = request.getParameter("price");
-            if (name != null || type != null || sales != null || stock != null || price != null) {
-               
+                if (ManageProducts.equals("update")) {
+                    product = new Product(Long.valueOf(IDUpdate), name, status, type, Integer.parseInt(sales), Integer.parseInt(stock), information, Float.valueOf(price), "img/Samsung/Samsung-Galaxy-A53.jpg");
+                    ProductDB.update(product);
+                } else {
+                    try {
+                        product = new Product(name, status, type, Integer.parseInt(sales), Integer.parseInt(stock), information, Float.valueOf(price), "img/Samsung/Samsung-Galaxy-A53.jpg");
+                        ProductDB.insert(product);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AdminDiscountServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
-            HttpSession session = request.getSession();
-            session.setAttribute("addproduct", addproduct);
+            List<Product> products = ProductDB.selectAllProduct();
+            session.setAttribute("products", products);
         }
 
         getServletContext().getRequestDispatcher(url).forward(request, response);

@@ -77,7 +77,6 @@
                     <span class="cell-label">Update:</span>
                     <button class="sort-button"><i class="fa-solid fa-pen-to-square"></i></button>
                     <input type="hidden" name="ManageDiscounts" value="update"/>
-                    <input type="hidden" name="discountID" value="${item.discountID}"/>
                 </div>
                 <% } else {%>
                 <div class="product-cell image">
@@ -93,6 +92,7 @@
                     <input type="hidden" name="ManageDiscounts" value="open_update"/>
                 </div>
                 <% }%>
+                <input type="hidden" name="discountID" value="${item.discountID}"/>
                 <a class="product-cell remove" href="AdminDiscount?ManageDiscounts=remove&amp;discountID=<c:out value="${item.discountID}"/>" style="text-decoration: none;" class="product-cell remove"><span class="cell-label">Remove:</span><span class="sort-button">
                         <i class="fa-solid fa-trash"></i> 
                     </span></a>
