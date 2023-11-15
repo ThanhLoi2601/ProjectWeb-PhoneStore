@@ -26,6 +26,10 @@ public class AdminProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        
         String url = "/Admin.jsp";
         HttpSession session = request.getSession();
         String ManageProducts = request.getParameter("ManageProducts");
@@ -45,6 +49,10 @@ public class AdminProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        
         String url = "/Admin.jsp";
         HttpSession session = request.getSession();
         String ManageProducts = request.getParameter("ManageProducts");
@@ -80,8 +88,8 @@ public class AdminProductServlet extends HttpServlet {
             }
             List<Product> products = ProductDB.selectAllProduct();
             session.setAttribute("products", products);
+            System.out.println(request.getParameter("image"));
         }
-
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 }
