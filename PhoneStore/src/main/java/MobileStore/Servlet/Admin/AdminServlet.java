@@ -4,12 +4,13 @@
  */
 package MobileStore.Servlet.Admin;
 
+import MobileStore.DB.AccountDB;
 import MobileStore.DB.DiscountDB;
 import MobileStore.DB.ProductDB;
+import MobileStore.data.Account;
 import MobileStore.data.Discount;
 import MobileStore.data.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,6 +37,9 @@ public class AdminServlet extends HttpServlet {
         }else if (sidebar_list.equals("Products")){
             List<Product> products = ProductDB.selectAllProduct();
             session.setAttribute("products", products);
+        }else if (sidebar_list.equals("Account")){
+            List<Account> accounts = AccountDB.selectAllAccount();
+            session.setAttribute("accounts", accounts);
         }
         String url = "/Admin.jsp";
         getServletContext().getRequestDispatcher(url).forward(request, response);

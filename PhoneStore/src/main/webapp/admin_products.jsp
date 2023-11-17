@@ -82,8 +82,8 @@
                 <div class="product-cell remove">Remove</div>
             </div>
             <c:forEach var="item" items="${products}">
-                <form action="AdminProduct" method="post">
-                    <div class="products-row" action="AdminProduct" method="post">
+                <form action="AdminProduct" method="post" enctype="multipart/form-data">
+                    <div class="products-row" action="AdminProduct" method="post" style="width: calc(100% - 16px);">
                         <button class="cell-more-button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                         </button>
@@ -100,7 +100,7 @@
                             </select>
                         </div>
 
-                        <div class="product-cell status"><span class="cell-label">Status:</span>
+                        <div class="product-cell category"><span class="cell-label">Status:</span>
                             <select placeholder="Status..." name="status" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
                                 <option value="active" ${item.status == true ? 'selected' : ''}>Active</option>
                                 <option value="disabled" ${item.status == false ? 'selected' : ''}>Disabled</option>
@@ -113,9 +113,9 @@
                                 <i class="fa-solid fa-pen-to-square"></i> 
                             </button></div>
                         <input type="hidden" name="ManageProducts" value="update"/>
-                        <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Image:</span>
+                        <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span>
                             <span class="sort-button">
-                                <i class="fa-solid fa-images"></i>  
+                                <i class="fa-solid fa-comment-dots"></i> 
                             </span></a>
                             <% } else {%>
                         <div class="product-cell image">
@@ -146,18 +146,21 @@
                             </span></a>    
                     </div>
                     <%if (request.getAttribute("ManageProducts") != null && request.getAttribute("ManageProducts").equals("open_update")) { %>
-                    <div class="products-row">
+                    <div class="products-row" style="width: calc(100% - 16px);">
                         <span style="font-size: 14px; margin-left:16px; border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
                             <i class="fa-solid fa-arrow-right"></i>  Information:</span>
                         <input placeholder="Information..." type="text" name="information" value="${item.information}" style="font-size: 14px; width: 700px;margin-left:16px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
+                        <span class="product-cell comment" style="text-decoration: none;"><span>Image:</span>
+                            <input class="sort-button" type="file" name= "image" >
+                        </span>
                     </div>
                     <% } %>
                 </form>
             </c:forEach>
 
             <%if (request.getAttribute("ManageProducts") != null && request.getAttribute("ManageProducts").equals("open_add")) { %>
-            <form action="AdminProduct" method="post">
-                <div class="products-row">
+            <form action="AdminProduct" method="post" enctype="multipart/form-data">
+                <div class="products-row" style="width: calc(100% - 16px);">
                     <button class="cell-more-button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                     </button>
@@ -173,7 +176,7 @@
                         </select>
                     </div>
 
-                    <div class="product-cell status"><span class="cell-label">Status:</span>
+                    <div class="product-cell category"><span class="cell-label">Status:</span>
                         <select placeholder="Status..." name="status" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
                             <option value="active">Active</option>
                             <option value="disabled">Disabled</option>
@@ -183,12 +186,12 @@
                     <div class="product-cell stock"><span class="cell-label">Stock:</span><input placeholder="Stock..." type="number" name="stock" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
                     <div class="product-cell price"><span class="cell-label">Price:</span>$<input placeholder="Price..." type="number" name="price" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
                     <div class="product-cell update"><span class="cell-label">Confirm:</span><button class="sort-button">
-                        CONFIRM
-                    </button></div>
+                            CONFIRM
+                        </button></div>
                     <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span>
-                            <span class="sort-button">
-                                <i class="fa-solid fa-comment-dots"></i> 
-                            </span></a>
+                        <span class="sort-button">
+                            <i class="fa-solid fa-comment-dots"></i> 
+                        </span></a>
                     <input type="hidden" name="ManageProducts" value="add"/>
                     <a href="Admin.jsp" class="product-cell remove" style="text-decoration: none;"><span class="cell-label">Remove:</span>
                         <span class="sort-button">
@@ -196,13 +199,12 @@
                         </span>
                     </a>
                 </div>
-                <div class="products-row">
+                <div class="products-row" style="width: calc(100% - 16px);">
                     <span style="font-size: 14px; margin-left:16px; border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
                         <i class="fa-solid fa-arrow-right"></i>  Information:</span>
                     <input placeholder="Information..." type="text" name="information" style="font-size: 14px; width: 700px;margin-left:16px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
-                    <div class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Image:</span>
+                    <div class="product-cell comment" style="text-decoration: none;"><span>Image:</span>
                         <input class="sort-button" type="file" name= "image" >
-<!--                        <i class="fa-solid fa-images"></i>   -->
                     </div>
                 </div>
             </form>

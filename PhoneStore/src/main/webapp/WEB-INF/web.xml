@@ -16,6 +16,10 @@
         <servlet-name>AdminDiscountServlet</servlet-name>
         <servlet-class>MobileStore.Servlet.Admin.AdminDiscountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminAccountServlet</servlet-name>
+        <servlet-class>MobileStore.Servlet.Admin.AdminAccountServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>AdminDiscountServlet</servlet-name>
         <url-pattern>/AdminDiscount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAccountServlet</servlet-name>
+        <url-pattern>/AdminAccount</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

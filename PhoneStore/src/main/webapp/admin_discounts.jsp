@@ -50,53 +50,53 @@
                 <div class="product-cell update">Update</div>
                 <div class="product-cell remove">Remove</div>
             </div>
-            
+
             <c:forEach var="item" items="${discounts}">
-            <form class="products-row" action="AdminDiscount" method="post">
-                <button class="cell-more-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                </button>
-                <%if (request.getAttribute("ManageDiscounts") != null && request.getAttribute("ManageDiscounts").equals("open_update")) { %>
-                <div class="product-cell image">
-                    <img src="img/discount.jpg" alt="Discount">
-                    <span><input placeholder="Name..." type="text" name="DiscountName" value="${item.name}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></span>
-                </div>
-                <div class="product-cell sales"><span class="cell-label">Discount:</span>
-                    <select placeholder="Discount..." name="Discount" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
-                        
-                        <option value="10" ${item.discount == 10 ? 'selected' : ''}>10%</option>
-                        <option value="20" ${item.discount == 20 ? 'selected' : ''}>20%</option>
-                        <option value="30" ${item.discount == 30 ? 'selected' : ''}>30%</option>
-                        <option value="40" ${item.discount == 40 ? 'selected' : ''}>40%</option>
-                        <option value="50" ${item.discount == 50 ? 'selected' : ''}>50%</option>
-                    </select>
-                </div>
-                <div class="product-cell stock"><span class="cell-label">Start Date:</span><input placeholder="Start Date..." type="date" name="start_date" value="${item.dateStart}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
-                <div class="product-cell price"><span class="cell-label">End Date:</span><input placeholder="End Date..." type="date" name="end_date" value="${item.dateEnd}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
-                <div class="product-cell update">
-                    <span class="cell-label">Update:</span>
-                    <button class="sort-button"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <input type="hidden" name="ManageDiscounts" value="update"/>
-                </div>
-                <% } else {%>
-                <div class="product-cell image">
-                    <img src="img/discount.jpg" alt="Discount">
-                    <span>${item.name}</span>
-                </div>
-                <div class="product-cell sales"><span class="cell-label">Discount:</span>${item.discount}%</div>
-                <div class="product-cell stock"><span class="cell-label">Start Date:</span>${item.dateStart}</div>
-                <div class="product-cell price"><span class="cell-label">End Date:</span>${item.dateEnd}</div>
-                <div class="product-cell update">
-                    <span class="cell-label">Update:</span>
-                    <button class="sort-button"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <input type="hidden" name="ManageDiscounts" value="open_update"/>
-                </div>
-                <% }%>
-                <input type="hidden" name="discountID" value="${item.discountID}"/>
-                <a class="product-cell remove" href="AdminDiscount?ManageDiscounts=remove&amp;discountID=<c:out value="${item.discountID}"/>" style="text-decoration: none;" class="product-cell remove"><span class="cell-label">Remove:</span><span class="sort-button">
-                        <i class="fa-solid fa-trash"></i> 
-                    </span></a>
-            </form>
+                <form class="products-row" action="AdminDiscount" method="post">
+                    <button class="cell-more-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </button>
+                    <%if (request.getAttribute("ManageDiscounts") != null && request.getAttribute("ManageDiscounts").equals("open_update")) { %>
+                    <div class="product-cell image">
+                        <img src="img/discount.jpg" alt="Discount">
+                        <span><input placeholder="Name..." type="text" name="DiscountName" value="${item.name}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></span>
+                    </div>
+                    <div class="product-cell sales"><span class="cell-label">Discount:</span>
+                        <select placeholder="Discount..." name="Discount" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
+
+                            <option value="10" ${item.discount == 10 ? 'selected' : ''}>10%</option>
+                            <option value="20" ${item.discount == 20 ? 'selected' : ''}>20%</option>
+                            <option value="30" ${item.discount == 30 ? 'selected' : ''}>30%</option>
+                            <option value="40" ${item.discount == 40 ? 'selected' : ''}>40%</option>
+                            <option value="50" ${item.discount == 50 ? 'selected' : ''}>50%</option>
+                        </select>
+                    </div>
+                    <div class="product-cell stock"><span class="cell-label">Start Date:</span><input placeholder="Start Date..." type="date" name="start_date" value="${item.dateStart}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
+                    <div class="product-cell price"><span class="cell-label">End Date:</span><input placeholder="End Date..." type="date" name="end_date" value="${item.dateEnd}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
+                    <div class="product-cell update">
+                        <span class="cell-label">Update:</span>
+                        <button class="sort-button"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <input type="hidden" name="ManageDiscounts" value="update"/>
+                    </div>
+                    <% } else {%>
+                    <div class="product-cell image">
+                        <img src="img/discount.jpg" alt="Discount">
+                        <span>${item.name}</span>
+                    </div>
+                    <div class="product-cell sales"><span class="cell-label">Discount:</span>${item.discount}%</div>
+                    <div class="product-cell stock"><span class="cell-label">Start Date:</span>${item.dateStart}</div>
+                    <div class="product-cell price"><span class="cell-label">End Date:</span>${item.dateEnd}</div>
+                    <div class="product-cell update">
+                        <span class="cell-label">Update:</span>
+                        <button class="sort-button"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <input type="hidden" name="ManageDiscounts" value="open_update"/>
+                    </div>
+                    <% }%>
+                    <input type="hidden" name="discountID" value="${item.discountID}"/>
+                    <a class="product-cell remove" href="AdminDiscount?ManageDiscounts=remove&amp;discountID=<c:out value="${item.discountID}"/>" style="text-decoration: none;" class="product-cell remove"><span class="cell-label">Remove:</span><span class="sort-button">
+                            <i class="fa-solid fa-trash"></i> 
+                        </span></a>
+                </form>
             </c:forEach>
             <%if (request.getAttribute("ManageDiscounts") != null && request.getAttribute("ManageDiscounts").equals("open_add")) { %>
             <form action="AdminDiscount" method="post" class="products-row">
@@ -115,7 +115,7 @@
                         <option value="50">50%</option>
                     </select>
                 </div>
-                
+
                 <div class="product-cell stock"><span class="cell-label">Start Date:</span><input placeholder="Start Date..." type="date" name="start_date" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
                 <div class="product-cell price"><span class="cell-label">End Date:</span><input placeholder="End Date..." type="date" name="end_date" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
                 <div class="product-cell update" style="text-decoration: none;"><span class="cell-label">Confirm:</span><button class="sort-button">

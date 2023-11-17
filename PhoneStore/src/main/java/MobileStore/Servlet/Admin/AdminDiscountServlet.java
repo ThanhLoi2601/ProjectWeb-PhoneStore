@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -69,7 +70,6 @@ public class AdminDiscountServlet extends HttpServlet {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Discount discount = null;
                 System.out.println(IDUpdate + " " + name + " " + dis + " " + date_start + " " + end_date);
-
                 if (ManageDiscounts.equals("update")) {
                     try {
                         discount = new Discount(Long.valueOf(IDUpdate), name, Integer.parseInt(dis), dateFormat.parse(date_start), dateFormat.parse(end_date));

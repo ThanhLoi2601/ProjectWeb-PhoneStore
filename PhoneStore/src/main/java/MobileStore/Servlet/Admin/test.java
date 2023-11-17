@@ -50,11 +50,11 @@ public class test extends HttpServlet {
         //DiscountDB.insert(new Discount("25/12", 30, dateFormat.parse("2023-12-25"), dateFormat.parse("2023-12-30")));
 //        Product product = new Product("Galaxy A53",Boolean.TRUE, "Samsung", 100, 5, "ROM 64GB",Float.valueOf("15"),"img/Samsung/Samsung-Galaxy-A53.jpg");
 //        ProductDB.insert(product);
-        User user = new User("Loi", "thanhloi@gmail", "TPHCM", "08548716662", Boolean.FALSE);
+        User user = new User("Thanhloi", "21110234@student.hcmute.edu.vn", "TPHCM", "085828829927", Boolean.FALSE);
         if (UserDB.emailExists(user.getEmail()) == false) {
             UserDB.insert(user);
         }
-        Account account = new Account("thanhloi", "12345", user);
+        Account account = new Account("loinguyen", "987654321", user);
         AccountDB.insert(account);
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */

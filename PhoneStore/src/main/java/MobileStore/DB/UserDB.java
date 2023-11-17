@@ -4,6 +4,7 @@
  */
 package MobileStore.DB;
 
+import MobileStore.data.Account;
 import java.sql.*;
 import javax.persistence.*;
 import MobileStore.data.User;
@@ -65,7 +66,10 @@ public class UserDB {
         EntityTransaction trans = em.getTransaction();
         trans.begin();
         try {
-            em.remove(user);
+            User managedUser = em.find(User.class, user.getID()); // Tìm đối tượng User trong cơ sở dữ liệu
+            if (managedUser != null) {
+                em.remove(managedUser); // Xóa đối tượng đã tìm thấy
+            }
             trans.commit();
         } catch (Exception e) {
             System.out.println(e);
