@@ -81,24 +81,32 @@ public class AdminProductServlet extends HttpServlet {
                 String stock = request.getParameter("stock");
                 String price = request.getParameter("price");
                 String information = request.getParameter("information");
-
                 Part part = request.getPart("image");
                 String realPath = request.getServletContext().getRealPath("/img");
                 String filename = Path.of(part.getSubmittedFileName()).getFileName().toString();
-                
                 Product product;
-                System.out.println(IDUpdate + " " + name + " " + type + " " + status + " " + price);
-                
+
                 if (!Files.exists(Path.of(realPath))) {
                     Files.createDirectories(Path.of(realPath));
                 }
-                part.write(realPath + "/" + filename);
+                if (filename != null && !filename.trim().isEmpty()) {
+                    part.write(realPath + "/" + filename);
+                    filename = "img/" + filename;
+                } else {
+                    if (ManageProducts.equals("update")) {
+                        Product p = ProductDB.selectIDProduct(IDUpdate);
+                        filename = p.getImage();
+                    } else if (ManageProducts.equals("add")) {
+                        filename = "img/phone.jpg";
+                    }
+                }
+
                 if (ManageProducts.equals("update")) {
-                    product = new Product(Long.valueOf(IDUpdate), name, status, type, Integer.parseInt(sales), Integer.parseInt(stock), information, Float.valueOf(price), "img/" + filename);
+                    product = new Product(Long.valueOf(IDUpdate), name, status, type, Integer.parseInt(sales), Integer.parseInt(stock), information, Float.valueOf(price), filename);
                     ProductDB.update(product);
                 } else {
                     try {
-                        product = new Product(name, status, type, Integer.parseInt(sales), Integer.parseInt(stock), information, Float.valueOf(price), "img/" + filename);
+                        product = new Product(name, status, type, Integer.parseInt(sales), Integer.parseInt(stock), information, Float.valueOf(price), filename);
                         ProductDB.insert(product);
                     } catch (SQLException ex) {
                         Logger.getLogger(AdminDiscountServlet.class.getName()).log(Level.SEVERE, null, ex);

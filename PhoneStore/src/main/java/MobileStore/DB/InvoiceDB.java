@@ -48,4 +48,35 @@ public class InvoiceDB {
             em.close();
         }
     }
+
+    public static Invoice selectIDInvoice(String id) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        String qString = "SELECT i FROM Invoice i "
+                + "WHERE i.invoiceID = :id";
+        TypedQuery<Invoice> q = em.createQuery(qString, Invoice.class);
+        q.setParameter("id", Long.valueOf(id));
+        try {
+            Invoice invoice = q.getSingleResult();
+            return invoice;
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public static void update(Invoice invoice) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        try {
+            em.merge(invoice);
+            trans.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
 }

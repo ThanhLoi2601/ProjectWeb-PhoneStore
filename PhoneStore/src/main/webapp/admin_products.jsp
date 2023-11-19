@@ -151,7 +151,7 @@
                             <i class="fa-solid fa-arrow-right"></i>  Information:</span>
                         <input placeholder="Information..." type="text" name="information" value="${item.information}" style="font-size: 14px; width: 700px;margin-left:16px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);">
                         <span class="product-cell comment" style="text-decoration: none;"><span>Image:</span>
-                            <input class="sort-button" type="file" name= "image" >
+                            <input class="sort-button" type="file" name= "image">
                         </span>
                     </div>
                     <% } %>
