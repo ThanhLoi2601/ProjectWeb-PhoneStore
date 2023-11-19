@@ -20,6 +20,10 @@
         <servlet-name>AdminAccountServlet</servlet-name>
         <servlet-class>MobileStore.Servlet.Admin.AdminAccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminInvoiceServlet</servlet-name>
+        <servlet-class>MobileStore.Servlet.Admin.AdminInvoiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>AdminAccountServlet</servlet-name>
         <url-pattern>/AdminAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminInvoiceServlet</servlet-name>
+        <url-pattern>/AdminInvoice</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

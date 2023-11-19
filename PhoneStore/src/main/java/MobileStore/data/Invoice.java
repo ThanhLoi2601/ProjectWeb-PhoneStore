@@ -42,10 +42,21 @@ public class Invoice implements Serializable {
     
     @ManyToOne
     private PaymentMethod payMethod;
+    
+    private Boolean status;
 
     public Invoice() {
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    
     public PaymentMethod getPayMethod() {
         return payMethod;
     }
@@ -95,12 +106,13 @@ public class Invoice implements Serializable {
         this.totalInvoice = total;
     }
 
-    public Invoice(Long invoiceID, Cart cart, Discount discount, Date dateCreate, PaymentMethod payMethod) {
+    public Invoice(Long invoiceID, Cart cart, Discount discount, Date dateCreate, PaymentMethod payMethod, Boolean status) {
         this.invoiceID = invoiceID;
         this.cart = cart;
         this.discount = discount;
         this.dateCreate = dateCreate;
         this.payMethod = payMethod;
+        this.status = status;
         this.calculateTotalInvoice();
     }
 }

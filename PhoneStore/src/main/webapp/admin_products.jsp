@@ -113,7 +113,7 @@
                                 <i class="fa-solid fa-pen-to-square"></i> 
                             </button></div>
                         <input type="hidden" name="ManageProducts" value="update"/>
-                        <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span>
+                        <a href="Admin?sidebar-list=Comment&amp;productID=<c:out value="${item.productID}"/>" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span>
                             <span class="sort-button">
                                 <i class="fa-solid fa-comment-dots"></i> 
                             </span></a>
@@ -134,7 +134,7 @@
                         <div class="product-cell update" style="text-decoration: none;"><span class="cell-label">Update:</span><button class="sort-button">
                                 <i class="fa-solid fa-pen-to-square"></i> 
                             </button></div>
-                        <a href="#" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span>
+                        <a href="Admin?sidebar-list=Comment&amp;productID=<c:out value="${item.productID}"/>" class="product-cell comment" style="text-decoration: none;"><span class="cell-label">Comment:</span>
                             <span class="sort-button">
                                 <i class="fa-solid fa-comment-dots"></i> 
                             </span></a>

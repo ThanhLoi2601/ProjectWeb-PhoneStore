@@ -5,10 +5,15 @@
 package MobileStore.Servlet.Admin;
 
 import MobileStore.DB.AccountDB;
+import MobileStore.DB.CommentDB;
 import MobileStore.DB.DiscountDB;
+import MobileStore.DB.InvoiceDB;
 import MobileStore.DB.ProductDB;
 import MobileStore.data.Account;
+import MobileStore.data.Comment;
 import MobileStore.data.Discount;
+import MobileStore.data.Invoice;
+import MobileStore.data.LineItem;
 import MobileStore.data.Product;
 import java.io.IOException;
 import java.util.List;
@@ -27,19 +32,29 @@ public class AdminServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String sidebar_list = request.getParameter("sidebar-list");
         HttpSession session = request.getSession();
         session.setAttribute("sidebar-list", sidebar_list);
         System.out.println(session.getAttribute("sidebar-list"));
-        if(sidebar_list.equals("Promotion")){
+        if (sidebar_list.equals("Promotion")) {
             List<Discount> discounts = DiscountDB.selectAllDiscount();
             session.setAttribute("discounts", discounts);
-        }else if (sidebar_list.equals("Products")){
+        } else if (sidebar_list.equals("Products")) {
             List<Product> products = ProductDB.selectAllProduct();
             session.setAttribute("products", products);
-        }else if (sidebar_list.equals("Account")){
+        } else if (sidebar_list.equals("Account")) {
             List<Account> accounts = AccountDB.selectAllAccount();
             session.setAttribute("accounts", accounts);
+        } else if (sidebar_list.equals("Comment")) {
+            String productID = request.getParameter("productID");
+            List<Comment> lsComment = CommentDB.selectComment(productID);
+            session.setAttribute("comments", lsComment);
+        } else if (sidebar_list.equals("Invoice")) {
+            List<Invoice> invoices = InvoiceDB.selectAllInvoice();
+            session.setAttribute("invoices", invoices);
         }
         String url = "/Admin.jsp";
         getServletContext().getRequestDispatcher(url).forward(request, response);
@@ -48,7 +63,7 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
 }
