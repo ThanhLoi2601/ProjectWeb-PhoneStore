@@ -19,6 +19,7 @@
         <div class="app-content-actions">
             <form action="AdminDiscount" method="post">
                 <button class="app-content-headerButton">Update</button>
+                <span style="color: yellow;">${message}</span>
                 <input type="hidden" name="ManageDiscounts" value="open_update"/>
             </form>
             <div class="app-content-actions-wrapper jsFilter">

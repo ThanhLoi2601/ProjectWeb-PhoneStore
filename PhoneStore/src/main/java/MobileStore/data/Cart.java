@@ -27,7 +27,7 @@ public class Cart implements Serializable {
     @GeneratedValue( strategy=GenerationType.AUTO )
     private Long cartID;
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<LineItem> lslineItems;
     
     @ManyToOne

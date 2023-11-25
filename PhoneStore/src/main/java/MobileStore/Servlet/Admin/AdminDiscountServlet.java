@@ -5,7 +5,9 @@
 package MobileStore.Servlet.Admin;
 
 import MobileStore.DB.DiscountDB;
+import MobileStore.DB.InvoiceDB;
 import MobileStore.data.Discount;
+import MobileStore.data.Invoice;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -42,7 +44,17 @@ public class AdminDiscountServlet extends HttpServlet {
             String IDUpdate = request.getParameter("discountID");
             Discount discount = DiscountDB.selectIDDiscount(IDUpdate);
             System.out.println(discount.getName());
-            DiscountDB.delete(discount);
+            List<Invoice> invoices = InvoiceDB.selectByDiscount(discount);
+            if(invoices == null || invoices.isEmpty()){
+                DiscountDB.delete(discount);
+            }else{
+                String message = "Please delete ";
+                for(Invoice i : invoices){
+                    message+= "Invoice " + i.getInvoiceID() + ", ";
+                }
+                message += "before deleting this discount - " + discount.getName();
+                request.setAttribute("message", message);
+            }
             List<Discount> discounts = DiscountDB.selectAllDiscount();
             session.setAttribute("discounts", discounts);
         }

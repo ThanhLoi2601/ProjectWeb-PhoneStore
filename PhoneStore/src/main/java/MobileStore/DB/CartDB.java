@@ -5,15 +5,36 @@
 package MobileStore.DB;
 
 import MobileStore.data.Cart;
+import MobileStore.data.Product;
 import MobileStore.util.DBUtil;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 
 /**
  *
  * @author DELL
  */
 public class CartDB {
+
+    public static List<Cart> selectByProduct(Product product) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        String qString = "SELECT c FROM Cart c "
+                    + "JOIN c.lslineItems li "
+                    + "WHERE li.item = :product";
+        TypedQuery<Cart> q = em.createQuery(qString, Cart.class);
+        q.setParameter("product", product);
+        try {
+            List<Cart> lsCart = q.getResultList();
+            return lsCart;
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
 
     public static void delete(Cart cart) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();

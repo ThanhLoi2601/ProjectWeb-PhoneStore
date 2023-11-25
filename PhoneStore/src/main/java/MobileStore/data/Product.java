@@ -16,15 +16,16 @@ import javax.persistence.Id;
  */
 @Entity
 public class Product implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productID;
-    
+
     private String name;
     private Boolean status;
-    
+
     private String type;
-    
+
     private int sale;
     private int stock;
     private String information;
@@ -117,8 +118,6 @@ public class Product implements Serializable {
         this.price = price;
         this.image = image;
     }
-    
-    
 
     public Product(String name, Boolean status, String type, int sale, int stock, String information, Float price, String image) {
         this.name = name;
@@ -130,7 +129,7 @@ public class Product implements Serializable {
         this.price = price;
         this.image = image;
     }
-    
+
     public Product(String name, Boolean status, String type, int sale, int stock, String information, Float price) {
         this.name = name;
         this.status = status;
@@ -140,5 +139,4 @@ public class Product implements Serializable {
         this.information = information;
         this.price = price;
     }
-
 }

@@ -43,7 +43,6 @@ public class AdminAccountServlet extends HttpServlet {
             String IDAccount = request.getParameter("accountID");
             Account account = AccountDB.selectIDAccount(IDAccount);
             AccountDB.delete(account);
-            UserDB.delete(account.getUser());
 
             // send email to user
             String to = account.getUser().getEmail();
@@ -143,6 +142,10 @@ public class AdminAccountServlet extends HttpServlet {
                 } catch (SQLException ex) {
                     Logger.getLogger(AdminAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else{
+                User u = UserDB.selectMailUser(user.getEmail());
+                user.setID(u.getID());
+                UserDB.update(user);
             }
             try {
                 Account account = new Account(username, "123456789", user);

@@ -4,7 +4,12 @@
  */
 package MobileStore.Servlet.Admin;
 
+import MobileStore.DB.CartDB;
+import MobileStore.DB.InvoiceDB;
+import MobileStore.DB.LineItemDB;
 import MobileStore.DB.ProductDB;
+import MobileStore.data.Cart;
+import MobileStore.data.Invoice;
 import MobileStore.data.Product;
 import java.io.File;
 import java.io.IOException;
@@ -44,12 +49,28 @@ public class AdminProductServlet extends HttpServlet {
             request.setAttribute("ManageProducts", ManageProducts);
             String IDUpdate = request.getParameter("productID");
             Product product = ProductDB.selectIDProduct(IDUpdate);
-            System.out.println(product.getName());
-            File fileIMG = new File(product.getImage());
-            if (fileIMG.delete()) {
-                System.out.println(fileIMG.getName() + " xoa thanh cong ");
+            
+            List<Cart> lsCart = CartDB.selectByProduct(product);
+            if (lsCart == null || lsCart.isEmpty()){
+                ProductDB.delete(product);
+            }else{
+                String strInvoices = "";
+                for (Cart cart : lsCart){
+                    Invoice invoice = InvoiceDB.selectByCart(cart);
+                    if(invoice != null){
+                        strInvoices += " Invoice " + invoice.getInvoiceID()+ ", ";
+                    }
+                }
+
+                if (strInvoices.equals("")){
+                    String message = "Currently the product cannot be deleted, please disable the product - " + product.getName();
+                    request.setAttribute("message", message);
+                }else{
+                    String message = "Please disable product or delete " + strInvoices + "before deleting this product - " + product.getName();
+                    request.setAttribute("message", message);
+                }
             }
-            ProductDB.delete(product);
+            
             List<Product> products = ProductDB.selectAllProduct();
             session.setAttribute("products", products);
         }

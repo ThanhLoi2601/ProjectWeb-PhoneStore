@@ -340,6 +340,21 @@ body {
     color: var(--app-content-main-color);
     margin-bottom: 8px;
 }
+.filter-menu input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-repeat: no-repeat;
+    padding: 8px 24px 8px 8px;
+    background-position: right 4px center;
+    border: 1px solid var(--app-content-main-color);
+    border-radius: 4px;
+    color: var(--app-content-main-color);
+    font-size: 12px;
+    background-color: transparent;
+    margin-bottom: 16px;
+    width: 100%;
+}
 .filter-menu select {
     -webkit-appearance: none;
     -moz-appearance: none;
