@@ -4,6 +4,8 @@
     Author     : DELL
 --%>
 
+<%@page import="MobileStore.data.Statistic"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Locale"%>
@@ -13,21 +15,34 @@
 <!DOCTYPE html>
 <html>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <%
+        List<Statistic> statistics = (List<Statistic>) request.getAttribute("statistics");
+    %>
     <script type="text/javascript">
         google.charts.load('current', {'packages': ['table']});
         google.charts.setOnLoadCallback(drawTable);
 
         function drawTable() {
+
+            // Create a DataTable
             var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Name');
-            data.addColumn('number', 'Salary');
-            data.addColumn('boolean', 'Full Time Employee');
-            data.addRows([
-                ['Mike', {v: 10000, f: '$10,000'}, true],
-                ['Jim', {v: 8000, f: '$8,000'}, false],
-                ['Alice', {v: 12500, f: '$12,500'}, true],
-                ['Bob', {v: 7000, f: '$7,000'}, true]
-            ]);
+            data.addColumn('string', 'Statistic Date');
+            data.addColumn('number', 'Sales Total ($)');
+            data.addColumn('number', 'Products Total');
+            var statisticsData = [];
+        <% for (Statistic statistic : statistics) {%>
+            var statistic = {
+                statisticDate: '<%= statistic.getStatisticDate()%>',
+                totalSales: <%= statistic.getTotalSales()%>,
+                totalProduct: <%= statistic.getTotalProduct()%>
+            };
+
+            statisticsData.push(statistic);
+        <% }%>
+            for (var i = 0; i < statisticsData.length; i++) {
+                var statistic = statisticsData[i];
+                data.addRow([statistic.statisticDate, statistic.totalSales, statistic.totalProduct]);
+            }
 
             var table = new google.visualization.Table(document.getElementById('table_div'));
 
@@ -38,17 +53,26 @@
         google.charts.load("current", {packages: ["corechart"]});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
-                ['Work', 11],
-                ['Eat', 2],
-                ['Commute', 2],
-                ['Watch TV', 2],
-                ['Sleep', 7]
-            ]);
+            // Create a DataTable
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Statistic Date');
+            data.addColumn('number', 'Products Total');
+            var statisticsData = [];
+        <% for (Statistic statistic : statistics) {%>
+            var statistic = {
+                statisticDate: '<%= statistic.getStatisticDate()%>',
+                totalProduct: <%= statistic.getTotalProduct()%>
+            };
+
+            statisticsData.push(statistic);
+        <% }%>
+            for (var i = 0; i < statisticsData.length; i++) {
+                var statistic = statisticsData[i];
+                data.addRow([statistic.statisticDate, statistic.totalProduct]);
+            }
 
             var options = {
-                title: 'My Daily Activities',
+                title: 'PRODUCTS STATISTICS',
                 pieHole: 0.4
             };
 
@@ -56,30 +80,68 @@
             chart.draw(data, options);
         }
     </script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            // Create a DataTable
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Statistic Date');
+            data.addColumn('number', 'Sales Total ($)');
+            var statisticsData = [];
+        <% for (Statistic statistic : statistics) {%>
+            var statistic = {
+                statisticDate: '<%= statistic.getStatisticDate()%>',
+                totalSales: <%= statistic.getTotalSales()%>
+            };
+
+            statisticsData.push(statistic);
+        <% }%>
+            for (var i = 0; i < statisticsData.length; i++) {
+                var statistic = statisticsData[i];
+                data.addRow([statistic.statisticDate, statistic.totalSales]);
+            }
+
+            var options = {
+                title: 'SALES STATISTICS',
+                curveType: 'function',
+                legend: {position: 'bottom'}
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+        }
+    </script>
     <div class="app-content">
         <div class="app-content-header">
-            <h1 class="app-content-headerText">Statistics</h1>
+            <h1 class="app-content-headerText"><i class="fa-solid fa-magnifying-glass-chart"></i> STATISTICS <i class="fa-solid fa-chart-line"></i></h1>
         </div>
         <div class="app-content-actions">
             <div class="filter-button-wrapper">
                 <button class="action-button filter jsFilter"><span>Filter</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></button>
-                <div class="filter-menu" style="right: -150px;">
+                <form  action="Statistics" method="post" class="filter-menu" style="right: -150px;">
                     <label>Start Date</label>
-                    <input value="2023-11-25" type="date" name="start_date" style="width: 200px;"/>
+                    <input value="${date_start}" type="date" name="start_date" style="width: 200px;"/>
                     <label>End Date</label>
-                    <input placeholder="End Date..." type="date" name="end_date" style="width: 200px;"/>
+                    <input value="${date_end}" type="date" name="end_date" style="width: 200px;"/>
                     <div class="filter-menu-buttons">
-                        <button class="filter-button reset">
+                        <a href="Statistics?AdminStatistics=DateNow" class="filter-button reset" style="text-decoration: none;">
                             Today
-                        </button>
+                        </a>
                         <button class="filter-button apply">
                             Apply
                         </button>
+                        <input type="hidden" name="AdminStatistics" value="load_statistics"/>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-        <div class="products-row" id="donutchart" style="height: 550px;"></div>
-        <div class="products-row" id="table_div" style="height: 200px;"></div>
+        <div class="products-row">
+            <div class="product-cell" id="donutchart" style="height: 500px; width: 49%; display: inline-block;"></div>
+            <div class="product-cell" id="curve_chart" style="height: 500px; width: 50%; display: inline-block;"></div>
+        </div>
+        <div class="products-row" id="table_div" style="height: 200px; width: 99%;"></div>
     </div>
 </html>

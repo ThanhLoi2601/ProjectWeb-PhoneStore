@@ -24,6 +24,10 @@
         <servlet-name>AdminInvoiceServlet</servlet-name>
         <servlet-class>MobileStore.Servlet.Admin.AdminInvoiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StatisticsServlet</servlet-name>
+        <servlet-class>MobileStore.Servlet.Admin.StatisticsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>AdminInvoiceServlet</servlet-name>
         <url-pattern>/AdminInvoice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StatisticsServlet</servlet-name>
+        <url-pattern>/Statistics</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

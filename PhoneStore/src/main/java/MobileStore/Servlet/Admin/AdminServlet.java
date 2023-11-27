@@ -15,7 +15,11 @@ import MobileStore.data.Discount;
 import MobileStore.data.Invoice;
 import MobileStore.data.LineItem;
 import MobileStore.data.Product;
+import MobileStore.data.Statistic;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -55,6 +59,27 @@ public class AdminServlet extends HttpServlet {
         } else if (sidebar_list.equals("Invoice")) {
             List<Invoice> invoices = InvoiceDB.selectAllInvoice();
             session.setAttribute("invoices", invoices);
+        } else if (sidebar_list.equals("Sales")) {
+            Date now = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = dateFormat.format(now);
+
+            request.setAttribute("date_start", formattedDate);
+            request.setAttribute("date_end", formattedDate);
+            List<Invoice> invoices = InvoiceDB.selectAllInvoice();
+            float totalSales =0;
+            int totalProduct = 0;
+            for(Invoice in : invoices){
+                if(dateFormat.format(in.getDateCreate()).equals(formattedDate)){
+                    totalSales= totalSales + in.getTotalInvoice();
+                    for(LineItem li : in.getCart().getLslineItems()){
+                        totalProduct = totalProduct + li.getQuanlity();
+                    }
+                }
+            }
+            List<Statistic> statistics = new ArrayList<>();
+            statistics.add(new Statistic(formattedDate,totalSales,totalProduct));
+            request.setAttribute("statistics", statistics);
         }
         String url = "/Admin.jsp";
         getServletContext().getRequestDispatcher(url).forward(request, response);
