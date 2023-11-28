@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,14 +14,12 @@
     </head>
     <body>
         <%
-            session.setAttribute("Home", true);
-            session.setAttribute("Gif", false);
-            session.setAttribute("Order", false);
-            session.setAttribute("Cart", false);
-            session.setAttribute("User", false);
-            session.setAttribute("InfShop", false);
+            session.setAttribute("wn_Home", true);
+            session.setAttribute("wn_Cart", false);
+            session.setAttribute("wn_User", false);
+            session.setAttribute("wn_InfShop", false);
         %>
-        <%@include file="header.jsp" %>
+        <%@include file="customer_header.jsp" %>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,11 +31,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
         <section class="hero">
             <h1>Welcome To Our Store!! <i class="fa-solid fa-heart" style="color: #ff0000;"></i></h1>
-            <div class="btn-group">
+            <form action="CustomerProduct" method="post" class="btn-group">
                 <button class="btn-filled-dark"><span class="material-symbols-outlined">
                         shopping_cart
                     </span>Shop All Products</button>
-            </div>
+                <input type="hidden" name="typeProduct" value="all"/>
+                <input type="hidden" name="done" value="show_product"/>
+            </form>
 
         </section>
         <section>
@@ -51,9 +52,13 @@
                         <li><i class="fa-regular fa-circle-check"></i><a> Trendy design</a></li>
                         <li><i class="fa-regular fa-circle-check"></i><a> Huge battery capacity</a></li>
                         <li><i class="fa-regular fa-circle-check"></i><a> Fast charging time</a></li>
-                        <button class="btn-outline-light">Shop All<span class="material-symbols-outlined">
-                                arrow_forward
-                            </span></button>
+                        <form action="CustomerProduct" method="post">
+                            <button class="btn-outline-light">Shop All<span class="material-symbols-outlined">
+                                    arrow_forward
+                                </span></button>
+                            <input type="hidden" name="typeProduct" value="xiaomi"/>
+                            <input type="hidden" name="done" value="show_product"/>
+                        </form>
 
                     </ul>
 
@@ -67,9 +72,13 @@
                         <li><i class="fa-regular fa-square-check"></i><a> Establish Advanced camera</a></li>
                         <li><i class="fa-regular fa-square-check"></i><a> Only 63 minutes to fully charge</a></li>
                         <li><i class="fa-regular fa-square-check"></i><a> Modern design</a></li>
-                        <button class="btn-outline-dark">Shop All<span class="material-symbols-outlined">
-                                arrow_forward
-                            </span></button>
+                        <form action="CustomerProduct" method="post">
+                            <button class="btn-outline-dark">Shop All<span class="material-symbols-outlined">
+                                    arrow_forward
+                                </span></button>
+                            <input type="hidden" name="typeProduct" value="realme"/>
+                            <input type="hidden" name="done" value="show_product"/>
+                        </form>
                     </ul>
 
                 </li>
@@ -82,10 +91,13 @@
                         <li><i class="fa-regular fa-circle-check"></i><a> Luxurious</a></li>
                         <li><i class="fa-regular fa-circle-check"></i><a> IOS system</a></li>
                         <li><i class="fa-regular fa-circle-check"></i><a> Ultra-sharp camera</a></li>
-
-                        <button class="btn-outline-dark">Shop All<span class="material-symbols-outlined">
-                                arrow_forward
-                            </span></button>
+                        <form action="CustomerProduct" method="post">
+                            <button class="btn-outline-dark">Shop All<span class="material-symbols-outlined">
+                                    arrow_forward
+                                </span></button>
+                            <input type="hidden" name="typeProduct" value="iphone"/>
+                            <input type="hidden" name="done" value="show_product"/>
+                        </form>
                     </ul>
 
                 </li>
@@ -97,9 +109,13 @@
                         <li><i class="fa-regular fa-square-check"></i><a> Dark God's Eye Camera</a></li>
                         <li><i class="fa-regular fa-square-check"></i><a> Snapdragon processors</a></li>
                         <li><i class="fa-regular fa-square-check"></i><a> The future of display technology</a></li>
-                        <button class="btn-outline-light">Shop All<span class="material-symbols-outlined">
-                                arrow_forward
-                            </span></button>
+                        <form action="CustomerProduct" method="post">
+                            <button class="btn-outline-light">Shop All<span class="material-symbols-outlined">
+                                    arrow_forward
+                                </span></button>
+                            <input type="hidden" name="typeProduct" value="samsung"/>
+                            <input type="hidden" name="done" value="show_product"/>
+                        </form>
                     </ul>
 
                 </li>
@@ -108,31 +124,19 @@
 
         <section>
             <h2><i class="fa-solid fa-angles-right"></i> OUR PROMOTIONS <i class="fa-solid fa-angles-right fa-rotate-180"></i></h2>
-
             <ul class="services">
-                <li class="card-large card-dark card-wide" id="serv-groom">
-                    <div class="card-image"><img src="img/discount_freeship.png"></div>
-                    <ul>
-                        Free shipping<span class="subtitle">We will provide free shipping for the following orders</span>
-                        <li><a>From</a><span>$30</span></li>
-                        <li><a>Quantity</a><span>over 1</span></li>
-                        <li><a>Area</a><span>Nationwide</span></li>
-                        <button class="btn-filled-dark"><i class="fa-regular fa-circle-down"></i></i>Add To Cart</button>
-
-                    </ul>
-
-
-                </li>
-                <li class="card-large card-dark card-wide" id="serv-board">
-                    <div class="card-image"><img src="img/discount_30.png"></div>
-                    <ul>
-                        30% discount<span class="subtitle">30% discount is applied when the order meets the following conditions</span>
-                        <li><a>Quantity</a><span>over 2</span></li>
-                        <li><a>Product Reviews</a><span>over 3</span></li>
-                        <button class="btn-filled-dark"><i class="fa-regular fa-circle-down"></i>Add To Cart</button>
-                    </ul>
-
-                </li>
+                <c:forEach var="item" items="${discounts}">
+                    <li class="card-large card-dark card-wide" id="serv-groom">
+                        <div class="card-image"><img src="img/discount.jpg"></div>
+                        <ul>
+                            ${item.name}<span class="subtitle">We will provide discount for the following orders</span>
+                            <li><a>Code</a><span>${item.discountID}</span></li>
+                            <li><a>Discount</a><span>${item.discount}%</span></li>
+                            <li><a>Start</a><span>${item.dateStart}</span></li>
+                            <li><a>End</a><span>${item.dateEnd}</span></li>
+                        </ul>
+                    </li>
+                </c:forEach>
             </ul>
         </section>
 

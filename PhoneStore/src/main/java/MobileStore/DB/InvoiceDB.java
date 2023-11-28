@@ -20,6 +20,10 @@ import javax.persistence.TypedQuery;
  */
 public class InvoiceDB {
 
+    public static boolean cartExists(Cart cart) {
+        Invoice c = selectByCart(cart);
+        return c != null;
+    }
     public static List<Invoice> selectAllInvoice() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         String qString = "SELECT i FROM Invoice i ";

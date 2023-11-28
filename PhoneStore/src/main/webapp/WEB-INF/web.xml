@@ -28,6 +28,14 @@
         <servlet-name>StatisticsServlet</servlet-name>
         <servlet-class>MobileStore.Servlet.Admin.StatisticsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerProductServlet</servlet-name>
+        <servlet-class>MobileStore.Servlet.Customer.CustomerProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Customer</servlet-name>
+        <servlet-class>MobileStore.Servlet.Customer.CustomerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>StatisticsServlet</servlet-name>
         <url-pattern>/Statistics</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerProductServlet</servlet-name>
+        <url-pattern>/CustomerProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Customer</servlet-name>
+        <url-pattern>/CustomerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -49,6 +49,22 @@ public class ProductDB {
             em.close();
         }
     }
+    
+    public static List<Product> selectByType(String type) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        String qString = "SELECT p FROM Product p "
+                + "WHERE p.type = :type";
+        TypedQuery<Product> q = em.createQuery(qString, Product.class);
+        q.setParameter("type", type);
+        try {
+            List<Product> lsProduct = q.getResultList();
+            return lsProduct;
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
 
     public static void update(Product product) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
