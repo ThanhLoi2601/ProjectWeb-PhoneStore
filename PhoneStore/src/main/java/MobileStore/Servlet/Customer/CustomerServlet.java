@@ -57,7 +57,7 @@ public class CustomerServlet extends HttpServlet {
             }
         }
         session.setAttribute("discounts", discountsUpdate);
-        //request.setAttribute("cart", cart);
+        session.setAttribute("cart", cart);
         getServletContext().getRequestDispatcher(url).forward(request,response);
     }
 
