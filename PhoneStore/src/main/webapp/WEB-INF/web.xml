@@ -36,6 +36,14 @@
         <servlet-name>Customer</servlet-name>
         <servlet-class>MobileStore.Servlet.Customer.CustomerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerDiscountServlet</servlet-name>
+        <servlet-class>MobileStore.Servlet.Customer.CustomerDiscountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerCartServlet</servlet-name>
+        <servlet-class>MobileStore.Servlet.Customer.CustomerCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>Customer</servlet-name>
         <url-pattern>/CustomerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerDiscountServlet</servlet-name>
+        <url-pattern>/CustomerDiscount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerCartServlet</servlet-name>
+        <url-pattern>/CustomerCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -26,11 +26,29 @@ public class LineItemDB {
         trans.begin();
         try {
             List<LineItem> lsLineItem = LineItemDB.selectByProduct(product);
-            System.out.print("LINEITEM "+ product.getName());
+            System.out.print("LINEITEM " + product.getName());
             for (LineItem li : lsLineItem) {
                 System.out.print(li.getItem().getName());
                 LineItem managedLineItem = em.merge(li);
                 em.remove(managedLineItem);
+            }
+            trans.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static void delete(LineItem lnItem) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        try {
+            LineItem managedlnItem = em.find(LineItem.class, lnItem.getId()); // Tìm đối tượng LineItem trong cơ sở dữ liệu
+            if (managedlnItem != null) {
+                em.remove(managedlnItem); // Xóa đối tượng đã tìm thấy
             }
             trans.commit();
         } catch (Exception e) {
@@ -56,4 +74,5 @@ public class LineItemDB {
             em.close();
         }
     }
+
 }

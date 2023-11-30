@@ -1,12 +1,12 @@
-
+/*@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");*/
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 body {
-	background: #ffe3e2;
-	font-family: montserrat;
+	background: #F7CABC;
+/*	font-family: montserrat;*/
 }
 .wrapper {
 	max-width: 1000px;
@@ -32,15 +32,19 @@ body {
 	background: #fff;
 	transition: all .6s ease;
 	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border-radius: 10px;
+        
 }
 .box:hover {
 	border: none;
 	transform: scale(1.01);
 }
 .box img {
-	width: 300px;
-	height: 200px;
-	object-fit: cover;
+    width: 300px;
+    height: 210px;
+    object-fit: cover;
+    padding: 0px 20px 30px;
+    margin: 10px;
 }
 .content {
 	padding: 20px;
@@ -62,22 +66,32 @@ body {
 	color: white;
 	cursor: pointer;
 	border-radius: 5px;
+        margin-bottom: 3rem
 }
 .btn-area:hover {
 	background-color: #76bfb6;
 	color: #fff;
 	font-weight: 600;
 }
-.btn-change{
-	background-color: #76bfb6;
-	color: #fff;
-	font-weight: 600;
+
+.update-btn {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
 }
 
 .unit input {
-	width: 40px;
-	padding: 5px;
-	text-align: center;
+    width: 40px;
+    height: 30px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 5px;  
+    box-sizing: border-box;
 }
 .btn-area i {
 	margin-right: 5px;
@@ -95,20 +109,22 @@ body {
 	margin-bottom: 25px;
 }
 .right-bar p {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 30px;
-	font-size: 20px;
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: space-between;
+    margin-bottom: 20px; /* Giảm khoảng cách giữa các ô */
+    font-size: 18px; /* Giảm kích thước chữ để nó phù hợp hơn */
 }
 .right-bar a {
-	background-color: #76bfb6;
-	color: #fff;
-	text-decoration: none;
-	display: block;
-	text-align: center;
-	height: 40px;
-	line-height: 40px;
-	font-weight: 900;
+    background-color: #76bfb6;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    font-weight: 900;
+    margin-top: 0px;
 }
 .right-bar i {
 	margin-right: 15px;
@@ -148,4 +164,56 @@ body {
 		max-width: 95%;
 	}
 }
+select#discount {
+    width: 40%;
+    height: 35px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+}
+select:hover {
+    border-color: #ccc;
+}
+
+/* Tuỳ chỉnh giao diện khi được chọn */
+select:focus {
+    border-color: #ccc;
+    outline: none;
+}
+.quantity-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.quantity-input {
+    width: 40px;
+    height: 30px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 5px;
+    box-sizing: border-box;
+}
+
+
 

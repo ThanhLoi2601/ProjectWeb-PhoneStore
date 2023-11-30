@@ -134,6 +134,18 @@
                             <li><a>Discount</a><span>${item.discount}%</span></li>
                             <li><a>Start</a><span>${item.dateStart}</span></li>
                             <li><a>End</a><span>${item.dateEnd}</span></li>
+                            <c:choose>
+                                <c:when test="${discount_save.discountID == null || item.discountID != discount_save.discountID}">
+                                    <form action="CustomerDiscount" method="post">
+                                        <button id="addToCartButton" class="btn-filled-dark" ><i class="fa-regular fa-circle-down"></i></i>Add Cart</button>
+                                        <input type="hidden" name="discountID" value="${item.discountID}"/>
+                                        <input type="hidden" name="done" value="change_discount"/>
+                                    </form>
+                                </c:when>
+                                <c:otherwise>
+                                    <button id="addToCartButton" class="btn-filled-dark" style="pointer-events: none; cursor: not-allowed; opacity: 0.6; "><i class="fa-regular fa-circle-down"></i></i>Add Cart</button>
+                                </c:otherwise>
+                            </c:choose>
                         </ul>
                     </li>
                 </c:forEach>

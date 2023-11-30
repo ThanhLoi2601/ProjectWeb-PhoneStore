@@ -11,8 +11,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cart Shopping</title>
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="styles/cart.css"/>
     </head>
     <body>
         <%
@@ -21,36 +19,67 @@
             session.setAttribute("wn_User", false);
             session.setAttribute("wn_InfShop", false);
             //cart
-        %>
+           %>
         <%@include file="customer_header.jsp" %>
+        <link rel="stylesheet" href="styles/cart.css"/>
         <div class="wrapper">
             <h1>My Shopping Cart</h1>
             <div class="project">
                 <div class="shop">
                     <c:forEach var="lineItem" items="${cart.lslineItems}">
-                    <div class="box">
-                        <img src="${lineItem.item.image}">
-                        <div class="content">
-                            <h3>${lineItem.item.name}</h3>
-                            <h4>Price: $${lineItem.item.price}</h4>
-                            <p class="unit">Quantity: <input name="" value="${lineItem.quanlity}"></p>
-                            <button class="btn-change">Change</button>
-                            <p class="btn-area"><i aria-hidden="true" class="fa fa-trash"></i> <span class="btn2">Remove</span></p>
+                        <div class="box">
+                            <img src="${lineItem.item.image}">
+                            <div class="content">
+                                <h3>${lineItem.item.name}</h3>
+                                <h4>Price: $${lineItem.item.price}</h4>
+                                <form action="CustomerCart" method="post" class="quantity-section">
+                                    <div class="quantity-controls">
+                                        <button class="quantity-btn" onclick="updateQuantity(-1,${lineItem.id})">-</button>
+                                        <input type="number" pattern="\d+" name="quanlity" value="${lineItem.quanlity}" class="quantity-input" id="${lineItem.id}" style="width: 50px">
+                                        <button class="quantity-btn" onclick="updateQuantity(1,${lineItem.id})">+</button>
+                                    </div>
+                                    <input type="hidden" name="change_cart" value="update">
+                                    <input type="hidden" name="lineItemID" value="<c:out value='${lineItem.id}'/>">
+                                    <button class="update-btn" onclick="updateQuantity(0,${lineItem.id})"><i class="fa-solid fa-pen-to-square"></i></button>
+                                </form>
+                                <a class="btn-area" href="CustomerCart?change_cart=remove&amp;lineItemID=<c:out value="${lineItem.id}"/>" style="text-decoration: none;"><i aria-hidden="true" class="fa fa-trash"></i> <span class="btn2">Remove</span></a>
+                            </div>
                         </div>
-                    </div>
                     </c:forEach>
                 </div>
                 <div class="right-bar">
-                    <p><span>Subtotal</span> <span>$120</span></p>
+                    <p><span>Subtotal</span> <span>$${cart.totalPrice}</span></p>
                     <hr>
-                    <p><span>Tax (5%)</span> <span>$6</span></p>
+                    <p><span>Discount</span> <span>- $${cart.totalPrice*discount_save.discount/100}</span></p>
                     <hr>
-                    <p><span>Shipping</span> <span>$15</span></p>
+                    <p><span>Method</span> 
+                        <select id="discount" name="method">
+                            <option value="1">online</option>
+                            <option value="2">offline</option>
+                        </select></p>
                     <hr>
-                    <p><span>Total</span> <span>$141</span></p><a href="#"><i class="fa fa-shopping-cart"></i>Checkout</a>
+                    <p><span>Total</span> <span>$${cart.totalPrice - cart.totalPrice*discount_save.discount/100}</span></p><a href="#"><i class="fa fa-shopping-cart"></i>Checkout</a>
                 </div>
             </div>
         </div>
+        <script>
+            function updateQuantity(change, id) {
+                // Get the current quantity input element
+                var quantityInput = document.getElementById(id);
+
+                // Parse the current quantity value as an integer
+                var currentQuantity = parseInt(quantityInput.value);
+
+                // Update the quantity based on the change parameter
+                var newQuantity = currentQuantity + change;
+
+                // Ensure the new quantity is not less than 0
+                newQuantity = Math.max(newQuantity, 0);
+
+                // Update the quantity input with the new value
+                quantityInput.value = newQuantity;
+            }
+        </script>
     </body>
 
 </html>

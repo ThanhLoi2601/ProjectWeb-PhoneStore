@@ -10,8 +10,8 @@ body {
 }
 .search button{
     border-radius: 20px;
-    border: 1px solid aliceblue;
-    background-color: aliceblue;
+    border: 1px solid #91E7ED;
+    background-color: #91E7ED;
 }
 .search button:hover{
     background-color: aliceblue;
@@ -85,7 +85,7 @@ h2::after {
     text-transform: uppercase;
     font-weight: bold;
     background: none;
-    border: 1px solid aliceblue;
+    border: 1px solid #91E7ED;
     padding: 6px 14px;
     margin-top: 5px;
     line-height: 16px;
@@ -175,17 +175,20 @@ h2::after {
     font-size: 14px;
     color: #ffc000;
 }
-.submit{
+.submit {
     width: 120px;
     height: 30px;
-    color: lightblue;
-    background-color: white;
-    border: 1px solid lightblue;
-    border-radius:20px;
-}
-.submit:hover{
-    background-color: lightblue;
     color: white;
-    border: 1px solid lightblue;
+    background-color: #91E7ED;
+    border: 1px solid #3498db;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit:hover {
+    background-color: #80A4F2;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); 
 }
 

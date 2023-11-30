@@ -30,12 +30,14 @@
                     </h1>
                     <p class="mb-8 leading-relaxed"><i class="fa-solid fa-star" style="color: #caee17;"></i>Star: ${rating}</p>
                     <p class="mb-8 leading-relaxed"><i class="fa-solid fa-money-check-dollar"></i> Price: $${product.price}</p>
-                    <form class="flex justify-center">
+                    <form action="CustomerCart" method="post" class="flex justify-center">
+                        <input type="hidden" name="change_cart" value="add">
+                        <input type="hidden" name="productCode" value="<c:out value='${product.productID}'/>">
                         <button class="ml-4 inline-flex text-gray-700 bg-gray-200 border-0 py-2 px-6 focus:outline-none hover:bg-gray-300 rounded text-lg"><i class="fa-solid fa-cart-arrow-down">&nbsp; Add to Cart</i></button>
                     </form>
                 </div>
                 <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-                    <img class="object-cover object-center rounded" alt="hero" src="${product.image}">
+                    <img class="object-cover object-center rounded" alt="image" src="${product.image}">
                 </div>
             </div>
         </section>

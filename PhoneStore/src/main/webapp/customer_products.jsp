@@ -53,7 +53,8 @@
                                                         <input class="submit" type="submit" value="Details">
                                                     </form>
 
-                                                    <form action="cart" method="post">
+                                                    <form action="CustomerCart" method="post">
+                                                        <input type="hidden" name="change_cart" value="add">
                                                         <input type="hidden" name="productCode" value="<c:out value='${product.productID}'/>">
                                                         <input class="submit" type="submit" value="Add To Cart">
                                                     </form>

@@ -31,40 +31,44 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String url = "/customer_Home.jsp";
         HttpSession session = request.getSession();
         //User user = (User)session.getAttribute("user");
         User user = UserDB.getUserById(11);
         Cart cart = null;
         List<Cart> carts = CartDB.selectCart(user.getID());
-        for(Cart c : carts){
-            if(!InvoiceDB.cartExists(c)){
+        for (Cart c : carts) {
+            if (!InvoiceDB.cartExists(c)) {
                 cart = c;
                 break;
             }
         }
-        if(cart == null){
+        if (cart == null) {
             cart = new Cart(user);
             CartDB.insert(cart);
         }
         session.setAttribute("cart", cart);
         List<Discount> discounts = DiscountDB.selectAllDiscount();
         List<Discount> discountsUpdate = new ArrayList<>();
-        for(Discount d : discounts){
+        for (Discount d : discounts) {
             Date now = new Date();
-            if(now.compareTo(d.getDateStart()) >= 0 && now.compareTo(d.getDateEnd()) <= 0){
+            if (now.compareTo(d.getDateStart()) >= 0 && now.compareTo(d.getDateEnd()) <= 0) {
                 discountsUpdate.add(d);
             }
         }
         session.setAttribute("discounts", discountsUpdate);
         session.setAttribute("cart", cart);
-        getServletContext().getRequestDispatcher(url).forward(request,response);
+        session.setAttribute("user", user);
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
 }
