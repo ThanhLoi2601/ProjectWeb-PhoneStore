@@ -18,7 +18,7 @@
             session.setAttribute("wn_Cart", true);
             session.setAttribute("wn_User", false);
             session.setAttribute("wn_InfShop", false);
-            //cart
+            session.setAttribute("wn_Comment", false);
            %>
         <%@include file="customer_header.jsp" %>
         <link rel="stylesheet" href="styles/cart.css"/>
@@ -47,7 +47,7 @@
                         </div>
                     </c:forEach>
                 </div>
-                <div class="right-bar">
+                <form action="CustomerCheckout" method="post" class="right-bar">
                     <p><span>Subtotal</span> <span>$${cart.totalPrice}</span></p>
                     <hr>
                     <p><span>Discount</span> <span>- $${cart.totalPrice*discount_save.discount/100}</span></p>
@@ -58,8 +58,9 @@
                             <option value="2">offline</option>
                         </select></p>
                     <hr>
-                    <p><span>Total</span> <span>$${cart.totalPrice - cart.totalPrice*discount_save.discount/100}</span></p><a href="#"><i class="fa fa-shopping-cart"></i>Checkout</a>
-                </div>
+                    <p><span>Total</span> <span>$${cart.totalPrice - cart.totalPrice*discount_save.discount/100}</span></p>
+                    <button style="width: 200px"><i class="fa fa-shopping-cart"></i>Checkout</button>
+                </form>
             </div>
         </div>
         <script>

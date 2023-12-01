@@ -8,6 +8,7 @@ import MobileStore.data.Cart;
 import MobileStore.data.Discount;
 import MobileStore.data.Invoice;
 import MobileStore.util.DBUtil;
+import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -24,6 +25,7 @@ public class InvoiceDB {
         Invoice c = selectByCart(cart);
         return c != null;
     }
+
     public static List<Invoice> selectAllInvoice() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         String qString = "SELECT i FROM Invoice i ";
@@ -109,6 +111,21 @@ public class InvoiceDB {
         trans.begin();
         try {
             em.merge(invoice);
+            trans.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static void insert(Invoice invoice) throws SQLException {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        try {
+            em.persist(invoice);
             trans.commit();
         } catch (Exception e) {
             System.out.println(e);

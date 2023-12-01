@@ -28,21 +28,21 @@ public class Invoice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long invoiceID;
-    
+
     @OneToOne
     private Cart cart;
-    
-    @ManyToOne
+
+    @ManyToOne(optional = true)
     private Discount discount;
-    
+
     @Temporal(TemporalType.DATE)
     private Date dateCreate;
-    
+
     private Float totalInvoice;
-    
+
     @ManyToOne
     private PaymentMethod payMethod;
-    
+
     private Boolean status;
 
     public Invoice() {
@@ -56,7 +56,6 @@ public class Invoice implements Serializable {
         this.status = status;
     }
 
-    
     public PaymentMethod getPayMethod() {
         return payMethod;
     }
@@ -102,8 +101,25 @@ public class Invoice implements Serializable {
     }
 
     public void calculateTotalInvoice() {
-        Float total = this.cart.getTotalPrice() * (1 - this.discount.getDiscount() / 100);
+        Float total = this.cart.getTotalPrice() - this.cart.getTotalPrice() * this.discount.getDiscount() / 100;
         this.totalInvoice = total;
+    }
+
+    public Invoice(Cart cart, Discount discount, PaymentMethod payMethod, Boolean status) {
+        this.cart = cart;
+        this.discount = discount;
+        this.dateCreate = new Date();
+        this.calculateTotalInvoice();
+        this.payMethod = payMethod;
+        this.status = status;
+    }
+
+    public Invoice(Cart cart, PaymentMethod payMethod, Boolean status) {
+        this.cart = cart;
+        this.dateCreate = new Date();
+        this.totalInvoice = cart.getTotalPrice();
+        this.payMethod = payMethod;
+        this.status = status;
     }
 
     public Invoice(Long invoiceID, Cart cart, Discount discount, Date dateCreate, PaymentMethod payMethod, Boolean status) {

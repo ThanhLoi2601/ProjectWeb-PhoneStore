@@ -109,7 +109,7 @@ public class CustomerProductServlet extends HttpServlet {
             double roundedrating = Double.parseDouble(df.format(rating));
             session.setAttribute("rating", roundedrating);
             session.setAttribute("product", product);
-            session.setAttribute("comment", comments);
+            session.setAttribute("comments", comments);
             url = "/customer_product_details.jsp";
         }
         getServletContext().getRequestDispatcher(url).forward(request, response);

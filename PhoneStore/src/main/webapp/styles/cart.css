@@ -115,7 +115,7 @@ body {
     margin-bottom: 20px; /* Giảm khoảng cách giữa các ô */
     font-size: 18px; /* Giảm kích thước chữ để nó phù hợp hơn */
 }
-.right-bar a {
+.right-bar button {
     background-color: #76bfb6;
     color: #fff;
     text-decoration: none;
@@ -129,7 +129,7 @@ body {
 .right-bar i {
 	margin-right: 15px;
 }
-.right-bar a:hover {
+.right-bar button:hover {
 	background-color: #3972a7;
 }
 @media screen and (max-width: 700px) {

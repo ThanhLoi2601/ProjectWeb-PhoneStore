@@ -39,6 +39,13 @@
                         <% } %>
                             <a class="nav-link" href="customer_cart.jsp"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
                         </li>
+                        <% if (session.getAttribute("wn_Comment") == null || (Boolean) session.getAttribute("wn_Comment") == false) { %>
+                        <li class="nav-item" id= 'InfShop'>
+                        <% } else { %>
+                        <li class="nav-item active" id= 'Comment'>
+                        <% } %>
+                            <a class="nav-link" href="customer_comment.jsp"><i class="fa-regular fa-comment-dots"></i>Comment</a>
+                        </li>
                         <% if (session.getAttribute("wn_User") == null || (Boolean) session.getAttribute("wn_User") == false) { %>
                         <li class="nav-item" id= 'User'>
                         <% } else { %>

@@ -18,6 +18,7 @@
             session.setAttribute("wn_Cart", false);
             session.setAttribute("wn_User", false);
             session.setAttribute("wn_InfShop", false);
+            session.setAttribute("wn_Comment", false);
         %>
         <%@include file="customer_header.jsp" %>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css'>

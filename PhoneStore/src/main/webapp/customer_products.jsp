@@ -22,6 +22,7 @@
             session.setAttribute("wn_Cart", false);
             session.setAttribute("wn_User", false);
             session.setAttribute("wn_InfShop", false);
+            session.setAttribute("wn_Comment", false);
         %>
         <%@include file="customer_header.jsp" %>
         <div class="container">
