@@ -46,7 +46,9 @@ public class CustomerCheckoutServlet extends HttpServlet {
         if (invoice != null) {
             try {
                 InvoiceDB.insert(invoice);
-                List<Product> lsProduct_cmt = new ArrayList<>();
+                List<Product>  lsProduct_cmt = (List<Product>) session.getAttribute("lsProduct_cmt");
+                if(lsProduct_cmt == null)
+                    lsProduct_cmt = new ArrayList<>();
                 for(LineItem ln : invoice.getCart().getLslineItems()){
                     if(!lsProduct_cmt.contains(ln.getItem())){
                        lsProduct_cmt.add(ln.getItem()); 

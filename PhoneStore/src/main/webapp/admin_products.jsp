@@ -107,9 +107,9 @@
                                 <option value="disabled" ${item.status == false ? 'selected' : ''}>Disabled</option>
                             </select>
                         </div>   
-                        <div class="product-cell sales"><span class="cell-label">Sales:</span><input placeholder="Sales..." type="number" name="sales" value="${item.sale}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
-                        <div class="product-cell stock"><span class="cell-label">Stock:</span><input placeholder="Stock..." type="number" name="stock" value="${item.stock}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
-                        <div class="product-cell price"><span class="cell-label">Price:</span>$<input placeholder="Price..." type="number" name="price" value="${item.price}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
+                                <div class="product-cell sales"><span class="cell-label">Sales:</span><input pattern="\d+" min ='0' placeholder="Sales..." type="number" name="sales" value="${item.sale}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);" required></div>
+                        <div class="product-cell stock"><span class="cell-label">Stock:</span><input pattern="\d+" min ='0' placeholder="Stock..." type="number" name="stock" value="${item.stock}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);" required></div>
+                        <div class="product-cell price"><span class="cell-label">Price:</span>$<input pattern="\d+" min ='0' placeholder="Price..." type="number" name="price" value="${item.price}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);" required></div>
                         <div class="product-cell update" style="text-decoration: none;"><span class="cell-label">Update:</span><button class="sort-button">
                                 <i class="fa-solid fa-pen-to-square"></i> 
                             </button></div>
@@ -183,9 +183,9 @@
                             <option value="disabled">Disabled</option>
                         </select>
                     </div>   
-                    <div class="product-cell sales"><span class="cell-label">Sales:</span><input placeholder="Sales..." type="number" name="sales" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
-                    <div class="product-cell stock"><span class="cell-label">Stock:</span><input placeholder="Stock..." type="number" name="stock" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
-                    <div class="product-cell price"><span class="cell-label">Price:</span>$<input placeholder="Price..." type="number" name="price" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);"></div>
+                    <div class="product-cell sales"><span class="cell-label">Sales:</span><input pattern="\d+" min='0' placeholder="Sales..." type="number" name="sales" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);" required></div>
+                    <div class="product-cell stock"><span class="cell-label">Stock:</span><input pattern="\d+" min='0' placeholder="Stock..." type="number" name="stock" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);" required></div>
+                    <div class="product-cell price"><span class="cell-label">Price:</span>$<input pattern="\d+" min='0' placeholder="Price..." type="number" name="price" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);" required></div>
                     <div class="product-cell update"><span class="cell-label">Confirm:</span><button class="sort-button">
                             CONFIRM
                         </button></div>

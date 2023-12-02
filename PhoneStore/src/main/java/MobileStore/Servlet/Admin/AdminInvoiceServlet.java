@@ -48,7 +48,9 @@ public class AdminInvoiceServlet extends HttpServlet {
                 detail += "Quanlity: " + li.getQuanlity() + "\n";
                 detail += "Price: $" + li.getItem().getPrice() + "\n";
             }
-            detail += "\nDiscount: " + invoice.getDiscount().getDiscount() + "%\n";
+            if (invoice.getDiscount() != null){
+                detail += "\nDiscount: " + invoice.getDiscount().getDiscount() + "%\n";
+            }         
             detail += "Amount: $" + invoice.getTotalInvoice() + "\n";
             detail += "Payment Method: " + invoice.getPayMethod().getMethod() + "\n";
 

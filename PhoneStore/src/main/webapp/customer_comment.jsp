@@ -11,8 +11,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Comment</title>
         <link rel="stylesheet" href="styles/customer_comment.css">
-        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css'>
-        <script src='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js'></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -33,9 +34,7 @@
                             <div
                                 class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
                                 <div class="mr-2 mb-3 mb-lg-0">
-
                                     <img src="${product.image}" width="150" height="150" alt="image">
-
                                 </div>
 
                                 <div class="media-body">
@@ -55,18 +54,36 @@
                                     </button>
 
                                     <div class="mt-3" id="commentForm${product.productID}" style="display: none;">
-                                        <form>
+                                        <form action="CustomerComment" method="post">
                                             <div class="form-group">
                                                 <label for="comment">Your Comment:</label>
-                                                <textarea class="form-control" id="comment" rows="3"></textarea>
+                                                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="rate">
+                                                    <input type="radio" id="star5${product.productID}" name="rate" value="5" />
+                                                    <label for="star5${product.productID}" title="text">5 stars</label>
+                                                    <input type="radio" id="star4${product.productID}" name="rate" value="4" />
+                                                    <label for="star4${product.productID}" title="text">4 stars</label>
+                                                    <input type="radio" id="star3${product.productID}" name="rate" value="3" />
+                                                    <label for="star3${product.productID}" title="text">3 stars</label>
+                                                    <input type="radio" id="star2${product.productID}" name="rate" value="2" />
+                                                    <label for="star2${product.productID}" title="text">2 stars</label>
+                                                    <input type="radio" id="star1${product.productID}" name="rate" value="1" />
+                                                    <label for="star1${product.productID}" title="text">1 star</label>
+                                                </div>
+                                                <input type="hidden" name="rating" id="selectedRating">
                                             </div>
                                             <button type="submit" class="btn btn-primary">Submit Comment</button>
+                                            <input type="hidden" name="productID" value="<c:out value='${product.productID}'/>">
+                                            <input type="hidden" name="add_comment" value="add">
                                         </form>
                                     </div>
                                 </div>
 
                                 <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
                                     <h3 class="mb-0 font-weight-semibold">$${product.price}</h3>
+
                                 </div>
                             </div>
                         </div>
@@ -85,6 +102,7 @@
             </c:forEach>
             });
         </script>
+
         <style>
             .card-body {
                 display: flex;

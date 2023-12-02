@@ -7,8 +7,10 @@ package MobileStore.DB;
 import MobileStore.data.Comment;
 import MobileStore.data.Product;
 import MobileStore.util.DBUtil;
+import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
@@ -29,6 +31,21 @@ public class CommentDB {
             return lsComment;
         } catch (NoResultException e) {
             return null;
+        } finally {
+            em.close();
+        }
+    }
+    
+    public static void insert(Comment comment) throws SQLException {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        try {
+            em.persist(comment);
+            trans.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();
         } finally {
             em.close();
         }

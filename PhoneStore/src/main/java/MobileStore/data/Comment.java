@@ -81,6 +81,13 @@ public class Comment implements Serializable {
         this.customer = customer;
     }
 
+    public Comment(Product product, Float star, String review, User customer) {
+        this.product = product;
+        this.star = star;
+        this.review = review;
+        this.customer = customer;
+    }
+
     public Comment() {
     }
 }

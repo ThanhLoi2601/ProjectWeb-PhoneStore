@@ -35,7 +35,7 @@
                                 <form action="CustomerCart" method="post" class="quantity-section">
                                     <div class="quantity-controls">
                                         <button class="quantity-btn" onclick="updateQuantity(-1,${lineItem.id})">-</button>
-                                        <input type="number" pattern="\d+" name="quanlity" value="${lineItem.quanlity}" class="quantity-input" id="${lineItem.id}" style="width: 50px">
+                                        <input type="number" pattern="\d+" min ='0' name="quanlity" value="${lineItem.quanlity}" class="quantity-input" id="${lineItem.id}" style="width: 50px" required>
                                         <button class="quantity-btn" onclick="updateQuantity(1,${lineItem.id})">+</button>
                                     </div>
                                     <input type="hidden" name="change_cart" value="update">

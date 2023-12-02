@@ -27,9 +27,9 @@
             <div class="wrapper-1">
                 <div class="wrapper-2">
                     <h1>Thank you !</h1>
-                    <p>Thank you for purchasing our products. </p>
-                    <p>you should receive a confirmation email soon </p>
-                    <a href="CustomerServlet" class="go-home">
+                    <p style="margin: 10px">Thank you for purchasing our products. </p>
+                    <p style="margin: 10px">You will receive confirmation from the admin soon</p>
+                    <a href="CustomerServlet" class="go-home" style="text-decoration: none;">
                         go home
                     </a>
                 </div>

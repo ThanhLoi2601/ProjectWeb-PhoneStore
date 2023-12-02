@@ -14,6 +14,7 @@ import MobileStore.data.Product;
 import MobileStore.data.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Objects;
 import javax.servlet.ServletException;
@@ -64,54 +65,69 @@ public class CustomerCartServlet extends HttpServlet {
         response.setContentType("text/html");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String url = "/customer_cart.jsp";
-        HttpSession session = request.getSession();
         String change_cart = request.getParameter("change_cart");
-        Cart cart = (Cart) session.getAttribute("cart");
-        LineItem ln_save = null;
         //User user = (User)session.getAttribute("user");
         if (change_cart.equals("add")) {
-            String productCode = request.getParameter("productCode");
-            Product product = ProductDB.selectIDProduct(productCode);
-            boolean test_add = false;
-            List<LineItem> lsln = cart.getLslineItems();
+            add_to_cart(request, response);
+        } else if (change_cart.equals("update")) {
+            update_cart(request, response);
+        }
+    }
+
+    private void add_to_cart(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        String url = "/customer_cart.jsp";
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        String productCode = request.getParameter("productCode");
+        Product product = ProductDB.selectIDProduct(productCode);
+        boolean test_add = false;
+        List<LineItem> lsln = cart.getLslineItems();
+        for (LineItem ln : lsln) {
+            if (Objects.equals(ln.getItem().getProductID(), product.getProductID())) {
+                ln.setQuanlity(ln.getQuanlity() + 1);
+                test_add = true;
+                break;
+            }
+        }
+        if (test_add == false) {
+            lsln.add(new LineItem(product, 1));
+        }
+        cart.setLslineItems(lsln);
+        cart.calculateTotalPrice();
+        CartDB.update(cart);
+        session.setAttribute("cart", cart);
+        response.sendRedirect("/PhoneStore" + url);
+    }
+
+    private void update_cart(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, ServletException, IOException {
+        String url = "/customer_cart.jsp";
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        LineItem ln_save = null;
+
+        String lineItemID = request.getParameter("lineItemID");
+        System.out.println("update" + lineItemID);
+        List<LineItem> lsln = cart.getLslineItems();
+        String quanlity = request.getParameter("quanlity");
+
+        if (Integer.parseInt(quanlity) != 0) {
             for (LineItem ln : lsln) {
-                if (Objects.equals(ln.getItem().getProductID(), product.getProductID())) {
-                    ln.setQuanlity(ln.getQuanlity() + 1);
-                    test_add = true;
+                if (Objects.equals(ln.getId(), Long.valueOf(lineItemID))) {
+                    ln.setQuanlity(Integer.parseInt(quanlity));
                     break;
                 }
             }
-            if (test_add == false) {
-                lsln.add(new LineItem(product, 1));
+            cart.setLslineItems(lsln);
+        } else {
+            for (LineItem ln : lsln) {
+                if (Objects.equals(ln.getId(), Long.valueOf(lineItemID))) {
+                    lsln.remove(ln);
+                    ln_save = ln;
+                    break;
+                }
             }
             cart.setLslineItems(lsln);
-        } else if (change_cart.equals("update")) {
-            String lineItemID = request.getParameter("lineItemID");
-            System.out.println("update"+ lineItemID);
-            List<LineItem> lsln = cart.getLslineItems();
-            String quanlity = request.getParameter("quanlity");
-
-            if (Integer.parseInt(quanlity) != 0) {
-                for (LineItem ln : lsln) {
-                    if (Objects.equals(ln.getId(), Long.valueOf(lineItemID))) {
-                        ln.setQuanlity(Integer.parseInt(quanlity));
-                        break;
-                    }
-                }
-                cart.setLslineItems(lsln);
-            } else {
-                for (LineItem ln : lsln) {
-                    if (Objects.equals(ln.getId(), Long.valueOf(lineItemID))) {
-                        lsln.remove(ln);
-                        ln_save = ln;
-                        break;
-                    }
-                }
-                cart.setLslineItems(lsln);
-            }
         }
-
         cart.calculateTotalPrice();
         CartDB.update(cart);
         if (ln_save != null) {
@@ -119,7 +135,7 @@ public class CustomerCartServlet extends HttpServlet {
         }
         session.setAttribute("cart", cart);
 
-        response.sendRedirect("/PhoneStore" + url);
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
 }
