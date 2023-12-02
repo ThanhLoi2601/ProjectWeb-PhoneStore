@@ -7,6 +7,7 @@ package MobileStore.DB;
 import MobileStore.data.LineItem;
 import MobileStore.data.Product;
 import MobileStore.util.DBUtil;
+import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -19,6 +20,23 @@ import javax.persistence.TypedQuery;
  * @author DELL
  */
 public class LineItemDB {
+
+//    public static LineItem insert(LineItem lineItem) throws SQLException {
+//        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+//        EntityTransaction trans = em.getTransaction();
+//        trans.begin();
+//        LineItem insertedLineItem = null;
+//        try {
+//            insertedLineItem = em.merge(lineItem);
+//            trans.commit();
+//        } catch (Exception e) {
+//            System.out.println(e);
+//            trans.rollback();
+//        } finally {
+//            em.close();
+//        }
+//        return insertedLineItem;
+//    }
 
     public static void delete(Product product) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
@@ -40,7 +58,7 @@ public class LineItemDB {
             em.close();
         }
     }
-    
+
     public static void delete(LineItem lnItem) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();

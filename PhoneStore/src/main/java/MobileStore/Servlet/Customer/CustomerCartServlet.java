@@ -15,8 +15,11 @@ import MobileStore.data.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -61,26 +64,31 @@ public class CustomerCartServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, UnsupportedEncodingException {
         response.setContentType("text/html");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String change_cart = request.getParameter("change_cart");
-        //User user = (User)session.getAttribute("user");
         if (change_cart.equals("add")) {
-            add_to_cart(request, response);
+            try {
+                add_to_cart(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(CustomerCartServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (change_cart.equals("update")) {
             update_cart(request, response);
         }
     }
 
-    private void add_to_cart(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+    private void add_to_cart(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException, SQLException {
         String url = "/customer_cart.jsp";
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
         String productCode = request.getParameter("productCode");
         Product product = ProductDB.selectIDProduct(productCode);
         boolean test_add = false;
+        System.out.println("Test");
+        System.out.println(product.getName() +" "+ test_add);
         List<LineItem> lsln = cart.getLslineItems();
         for (LineItem ln : lsln) {
             if (Objects.equals(ln.getItem().getProductID(), product.getProductID())) {
@@ -89,12 +97,18 @@ public class CustomerCartServlet extends HttpServlet {
                 break;
             }
         }
+        System.out.println(product.getName() +" "+ test_add);
         if (test_add == false) {
-            lsln.add(new LineItem(product, 1));
+            LineItem ln = new LineItem(product, 1);
+            lsln.add(ln);
+            for(LineItem l : lsln){
+                System.out.println(l.getItem().getName() +" "+ l.getQuanlity());
+            }
         }
         cart.setLslineItems(lsln);
         cart.calculateTotalPrice();
         CartDB.update(cart);
+        cart = CartDB.selectIDCart(cart.getCartID().toString());
         session.setAttribute("cart", cart);
         response.sendRedirect("/PhoneStore" + url);
     }
@@ -106,7 +120,6 @@ public class CustomerCartServlet extends HttpServlet {
         LineItem ln_save = null;
 
         String lineItemID = request.getParameter("lineItemID");
-        System.out.println("update" + lineItemID);
         List<LineItem> lsln = cart.getLslineItems();
         String quanlity = request.getParameter("quanlity");
 
@@ -134,7 +147,6 @@ public class CustomerCartServlet extends HttpServlet {
             LineItemDB.delete(ln_save);
         }
         session.setAttribute("cart", cart);
-
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 

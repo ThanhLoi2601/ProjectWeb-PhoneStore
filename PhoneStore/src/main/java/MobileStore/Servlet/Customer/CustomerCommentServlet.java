@@ -56,7 +56,6 @@ public class CustomerCommentServlet extends HttpServlet {
                 for(Product p : lsProduct_cmt){
                     if(p.getProductID().equals(product.getProductID())){
                         lsProduct_cmt.remove(p);
-                        System.err.println("okie");
                         break;
                     }
                 }

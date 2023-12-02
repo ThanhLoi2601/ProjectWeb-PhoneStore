@@ -73,7 +73,7 @@
                         <li><i class="fa-regular fa-square-check"></i><a> Establish Advanced camera</a></li>
                         <li><i class="fa-regular fa-square-check"></i><a> Only 63 minutes to fully charge</a></li>
                         <li><i class="fa-regular fa-square-check"></i><a> Modern design</a></li>
-                        <form action="CustomerProduct" method="post">
+                        <form action="CustomerProduct" method="post" style="margin-top:50px">
                             <button class="btn-outline-dark">Shop All<span class="material-symbols-outlined">
                                     arrow_forward
                                 </span></button>
@@ -110,7 +110,7 @@
                         <li><i class="fa-regular fa-square-check"></i><a> Dark God's Eye Camera</a></li>
                         <li><i class="fa-regular fa-square-check"></i><a> Snapdragon processors</a></li>
                         <li><i class="fa-regular fa-square-check"></i><a> The future of display technology</a></li>
-                        <form action="CustomerProduct" method="post">
+                        <form action="CustomerProduct" method="post" style="margin-top:45px">
                             <button class="btn-outline-light">Shop All<span class="material-symbols-outlined">
                                     arrow_forward
                                 </span></button>

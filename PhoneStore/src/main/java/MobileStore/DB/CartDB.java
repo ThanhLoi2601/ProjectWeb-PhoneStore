@@ -67,6 +67,22 @@ public class CartDB {
             em.close();
         }
     }
+    
+    public static Cart selectIDCart(String id) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        String qString = "SELECT c FROM Cart c "
+                + "WHERE c.cartID = :id";
+        TypedQuery<Cart> q = em.createQuery(qString, Cart.class);
+        q.setParameter("id", Long.valueOf(id));
+        try {
+            Cart cart = q.getSingleResult();
+            return cart;
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
 
     public static void insert(Cart cart) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
