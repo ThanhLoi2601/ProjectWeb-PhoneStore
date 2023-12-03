@@ -85,14 +85,19 @@ public class Account implements Serializable {
         this.setPass(password);
     }
 
-    public Account(Long id, String username, String password, User user) {
+    public Account(Long id, String username, String password, User user) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         this.id = id;
         this.username = username;
-        this.password = password;
+        this.setPass(password);
         this.user = user;
     }
 
     public Account() {
+    }
+
+    public Account(String username, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        this.username = username;
+        this.setPass(password);
     }
 
 }

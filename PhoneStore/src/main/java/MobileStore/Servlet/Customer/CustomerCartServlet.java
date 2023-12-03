@@ -83,33 +83,36 @@ public class CustomerCartServlet extends HttpServlet {
     private void add_to_cart(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException, SQLException {
         String url = "/customer_cart.jsp";
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-        String productCode = request.getParameter("productCode");
-        Product product = ProductDB.selectIDProduct(productCode);
-        boolean test_add = false;
-        System.out.println("Test");
-        System.out.println(product.getName() +" "+ test_add);
-        List<LineItem> lsln = cart.getLslineItems();
-        for (LineItem ln : lsln) {
-            if (Objects.equals(ln.getItem().getProductID(), product.getProductID())) {
-                ln.setQuanlity(ln.getQuanlity() + 1);
-                test_add = true;
-                break;
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            Cart cart = (Cart) session.getAttribute("cart");
+            String productCode = request.getParameter("productCode");
+            Product product = ProductDB.selectIDProduct(productCode);
+            boolean test_add = false;
+            List<LineItem> lsln = cart.getLslineItems();
+            for (LineItem ln : lsln) {
+                if (Objects.equals(ln.getItem().getProductID(), product.getProductID())) {
+                    ln.setQuanlity(ln.getQuanlity() + 1);
+                    test_add = true;
+                    break;
+                }
             }
-        }
-        System.out.println(product.getName() +" "+ test_add);
-        if (test_add == false) {
-            LineItem ln = new LineItem(product, 1);
-            lsln.add(ln);
-            for(LineItem l : lsln){
-                System.out.println(l.getItem().getName() +" "+ l.getQuanlity());
+            System.out.println(product.getName() + " " + test_add);
+            if (test_add == false) {
+                LineItem ln = new LineItem(product, 1);
+                lsln.add(ln);
+                for (LineItem l : lsln) {
+                    System.out.println(l.getItem().getName() + " " + l.getQuanlity());
+                }
             }
+            cart.setLslineItems(lsln);
+            cart.calculateTotalPrice();
+            CartDB.update(cart);
+            cart = CartDB.selectIDCart(cart.getCartID().toString());
+            session.setAttribute("cart", cart);
+        }else{
+            url = "/Login.jsp";
         }
-        cart.setLslineItems(lsln);
-        cart.calculateTotalPrice();
-        CartDB.update(cart);
-        cart = CartDB.selectIDCart(cart.getCartID().toString());
-        session.setAttribute("cart", cart);
         response.sendRedirect("/PhoneStore" + url);
     }
 

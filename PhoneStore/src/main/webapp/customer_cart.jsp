@@ -23,14 +23,14 @@
         <%@include file="customer_header.jsp" %>
         <link rel="stylesheet" href="styles/cart.css"/>
         <div class="wrapper">
-            <h1>My Shopping Cart</h1>
+            <h1>My Cart <i class="fa-solid fa-cart-shopping"></i></h1>
             <div class="project">
                 <div class="shop">
                     <c:forEach var="lineItem" items="${cart.lslineItems}">
                         <div class="box">
                             <img src="${lineItem.item.image}">
                             <div class="content">
-                                <h3>${lineItem.item.name}</h3>
+                                <h3><a href="CustomerProduct?done=details&amp;productCode=<c:out value='${lineItem.item.productID}'/>">${lineItem.item.name}</a></h3>
                                 <h4>Price: $${lineItem.item.price}</h4>
                                 <form action="CustomerCart" method="post" class="quantity-section">
                                     <div class="quantity-controls">

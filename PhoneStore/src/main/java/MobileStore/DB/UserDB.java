@@ -126,4 +126,51 @@ public class UserDB {
             em.close();
         }
     }
+
+    public static boolean authenticateUser(String username, String password) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        String qString = "SELECT u FROM Account u "
+                + "WHERE u.username = :username AND u.password = :password";
+        TypedQuery<Account> q = em.createQuery(qString, Account.class);
+        q.setParameter("username", username);
+        q.setParameter("password", password); // In production, use hashed passwords
+
+        try {
+            Account account = q.getSingleResult();
+            return account != null; // Authentication successful if user is found
+        } catch (NoResultException e) {
+            return false; // Authentication failed if no user is found
+        } finally {
+            em.close();
+        }
+    }
+//     public boolean addUser(User user) {
+//        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+//        EntityTransaction trans = em.getTransaction();
+//
+//        try {
+//            trans.begin();
+//
+//            // Thêm thông tin người dùng vào bảng User
+//            em.persist(user);
+//
+//            // Tạo đối tượng Account và thêm mật khẩu vào bảng Account
+//            Account account = new Account();
+//            account.setUser(user);
+//            account.setPassword();
+//
+//            em.persist(account);
+//
+//            trans.commit();
+//            return true;
+//        } catch (Exception e) {
+//            if (trans.isActive()) {
+//                trans.rollback();
+//            }
+//            e.printStackTrace();
+//            return false;
+//        } finally {
+//            em.close();
+//        }
+//    }
 }

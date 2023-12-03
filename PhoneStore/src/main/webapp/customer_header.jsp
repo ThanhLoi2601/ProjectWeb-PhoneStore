@@ -51,14 +51,14 @@
                         <% } else { %>
                         <li class="nav-item active" id= 'User'>
                         <% } %>
-                            <a class="nav-link" href="javascript:void(0);"><i class="fa-solid fa-user"></i>Log in/Sign up</a>
+                            <a class="nav-link" href="customer_profile.jsp"><i class="fa-solid fa-user"></i>User</a>
                         </li>
                         <% if (session.getAttribute("wn_InfShop") == null || (Boolean) session.getAttribute("wn_InfShop") == false) { %>
                         <li class="nav-item" id= 'InfShop'>
                         <% } else { %>
                         <li class="nav-item active" id= 'InfShop'>
                         <% } %>
-                            <a class="nav-link" href="javascript:void(0);"><i class="fa-solid fa-circle-info"></i>Shop</a>
+                            <a class="nav-link" href="admin_profile.jsp"><i class="fa-solid fa-circle-info"></i>Shop</a>
                         </li>
                     </ul>
                 </div>
