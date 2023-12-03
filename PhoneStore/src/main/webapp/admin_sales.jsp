@@ -4,6 +4,8 @@
     Author     : DELL
 --%>
 
+<%@page import="MobileStore.data.Statistic"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Locale"%>
@@ -12,150 +14,134 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <%
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", new Locale("en", "VN"));
-        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-        // Lấy thời gian hiện tại
-        Calendar cal = Calendar.getInstance();
-
-        String monthInWords = monthFormat.format(cal.getTime());
-        pageContext.setAttribute("monthInWords", monthInWords);
-
-        String year = yearFormat.format(cal.getTime());
-        pageContext.setAttribute("year", year);
-        // Trừ 1 tháng
-        cal.add(Calendar.MONTH, -1);
-        String oneMonthsAgo = monthFormat.format(cal.getTime());
-        pageContext.setAttribute("oneMonthsAgo", oneMonthsAgo);
-
-        // Trừ 2 tháng
-        cal.add(Calendar.MONTH, -1);
-
-        String twoMonthsAgo = monthFormat.format(cal.getTime());
-        pageContext.setAttribute("twoMonthsAgo", twoMonthsAgo);
+        List<Statistic> statistics = (List<Statistic>) request.getAttribute("statistics");
     %>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['table']});
+        google.charts.setOnLoadCallback(drawTable);
 
+        function drawTable() {
+
+            // Create a DataTable
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Statistic Date');
+            data.addColumn('number', 'Sales Total ($)');
+            data.addColumn('number', 'Products Total');
+            var statisticsData = [];
+        <% for (Statistic statistic : statistics) {%>
+            var statistic = {
+                statisticDate: '<%= statistic.getStatisticDate()%>',
+                totalSales: <%= statistic.getTotalSales()%>,
+                totalProduct: <%= statistic.getTotalProduct()%>
+            };
+
+            statisticsData.push(statistic);
+        <% }%>
+            for (var i = 0; i < statisticsData.length; i++) {
+                var statistic = statisticsData[i];
+                data.addRow([statistic.statisticDate, statistic.totalSales, statistic.totalProduct]);
+            }
+
+            var table = new google.visualization.Table(document.getElementById('table_div'));
+
+            table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+        }
+    </script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages: ["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            // Create a DataTable
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Statistic Date');
+            data.addColumn('number', 'Products Total');
+            var statisticsData = [];
+        <% for (Statistic statistic : statistics) {%>
+            var statistic = {
+                statisticDate: '<%= statistic.getStatisticDate()%>',
+                totalProduct: <%= statistic.getTotalProduct()%>
+            };
+
+            statisticsData.push(statistic);
+        <% }%>
+            for (var i = 0; i < statisticsData.length; i++) {
+                var statistic = statisticsData[i];
+                data.addRow([statistic.statisticDate, statistic.totalProduct]);
+            }
+
+            var options = {
+                title: 'PRODUCTS STATISTICS',
+                pieHole: 0.4
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+            chart.draw(data, options);
+        }
+    </script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            // Create a DataTable
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Statistic Date');
+            data.addColumn('number', 'Sales Total ($)');
+            var statisticsData = [];
+        <% for (Statistic statistic : statistics) {%>
+            var statistic = {
+                statisticDate: '<%= statistic.getStatisticDate()%>',
+                totalSales: <%= statistic.getTotalSales()%>
+            };
+
+            statisticsData.push(statistic);
+        <% }%>
+            for (var i = 0; i < statisticsData.length; i++) {
+                var statistic = statisticsData[i];
+                data.addRow([statistic.statisticDate, statistic.totalSales]);
+            }
+
+            var options = {
+                title: 'SALES STATISTICS',
+                curveType: 'function',
+                legend: {position: 'bottom'}
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+        }
+    </script>
     <div class="app-content">
         <div class="app-content-header">
-            <h1 class="app-content-headerText">Sales Chart</h1>
+            <h1 class="app-content-headerText"><i class="fa-solid fa-magnifying-glass-chart"></i> STATISTICS <i class="fa-solid fa-chart-line"></i></h1>
         </div>
-        <link rel="stylesheet" href="styles/chart.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-        <div class="container">
-            <div class="donut-chart-block block"> 
-                <h2 class="titular">PHONE SALES STATS</h2>
-                <div class="donut-chart">
-                    <div id="porcion1" class="recorte"><div class="quesito Iphone" data-rel="21"></div></div>
-                    <div id="porcion2" class="recorte"><div class="quesito Samsung" data-rel="39"></div></div>
-                    <div id="porcion3" class="recorte"><div class="quesito Xiaomi" data-rel="31"></div></div>
-                    <div id="porcionFin" class="recorte"><div class="quesito Realme" data-rel="9"></div></div>
-
-                    <p class="center-date">${monthInWords}<br><span class="scnd-font-color">${year}</span></p>        
-                </div>
-                <ul class="os-percentages horizontal-list">
-                    <li>
-                        <p class="Iphone os scnd-font-color">Iphone</p>
-                        <p class="os-percentage">21<sup>%</sup></p>
-                    </li>
-                    <li>
-                        <p class="Samsung os scnd-font-color">Samsung</p>
-                        <p class="os-percentage">39<sup>%</sup></p>
-                    </li>
-                    <li>
-                        <p class="Xiaomi os scnd-font-color">Xiaomi</p>
-                        <p class="os-percentage">9<sup>%</sup></p>
-                    </li>
-                    <li>
-                        <p class="Realme os scnd-font-color">Realme</p>
-                        <p class="os-percentage">31<sup>%</sup></p>
-                    </li>
-                </ul>
-            </div>
-            <!-- LINE CHART BLOCK (LEFT-CONTAINER) -->
-            <div class="line-chart-block block">
-                <div class="line-chart">
-                    <div class='grafico'>
-                        <ul class='eje-y'>
-                            <li data-ejeY='30'></li>
-                            <li data-ejeY='20'></li>
-                            <li data-ejeY='10'></li>
-                            <li data-ejeY='0'></li>
-                        </ul>
-                        <ul class='eje-x'>
-                            <li>${twoMonthsAgo}</li>
-                            <li>${oneMonthsAgo}</li>
-                            <li>${monthInWords}</li>
-                        </ul>
-                        <span data-valor='25'>
-                            <span data-valor='8'>
-                                <span data-valor='13'>
-                                    <span data-valor='5'>   
-                                        <span data-valor='23'>   
-                                            <span data-valor='12'>
-                                                <span data-valor='15'>
-                                                </span></span></span></span></span></span></span>
+        <div class="app-content-actions">
+            <div class="filter-button-wrapper">
+                <button class="action-button filter jsFilter"><span>Filter</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></button>
+                <form  action="Statistics" method="post" class="filter-menu" style="right: -150px;">
+                    <label>Start Date</label>
+                    <input value="${date_start}" type="date" name="start_date" style="width: 200px;"/>
+                    <label>End Date</label>
+                    <input value="${date_end}" type="date" name="end_date" style="width: 200px;"/>
+                    <div class="filter-menu-buttons">
+                        <a href="Statistics?AdminStatistics=DateNow" class="filter-button reset" style="text-decoration: none;">
+                            Today
+                        </a>
+                        <button class="filter-button apply">
+                            Apply
+                        </button>
+                        <input type="hidden" name="AdminStatistics" value="load_statistics"/>
                     </div>
-
-                </div>
-                <h2 class="titular">SALES BY YEAR ${year}</h2>
-                <ul class="month-data clear">
-                    <li>
-                        <p>${twoMonthsAgo}<span class="scnd-font-color"> ${year}</span></p>
-                        <p><span class="entypo-plus increment"> </span>21<sup>%</sup></p>
-                    </li>
-                    <li>
-                        <p>${oneMonthsAgo}<span class="scnd-font-color"> ${year}</span></p>
-                        <p><span class="entypo-plus increment"> </span>48<sup>%</sup></p>
-                    </li>
-                    <li>
-                        <p>${monthInWords}<span class="scnd-font-color"> ${year}</span></p>
-                        <p><span class="entypo-plus increment"> </span>35<sup>%</sup></p>
-                    </li>
-                </ul>
+                </form>
             </div>
-
-
-
-            <div class="bar-chart-block block">
-                <h2 class='titular'>Number of products sold</h2>
-                <div class='grafico bar-chart'>
-                    <ul class='eje-y'>
-                        <li data-ejeY='60'></li>
-                        <li data-ejeY='45'></li>
-                        <li data-ejeY='30'></li>
-                        <li data-ejeY='15'></li>
-                        <li data-ejeY='0'></li>
-                    </ul>
-                    <ul class='eje-x'>
-                        <li data-ejeX='37'><i>Iphone</i></li>
-                        <li data-ejeX='56'><i>Samsung</i></li>
-                        <li data-ejeX='25'><i>Xiaomi</i></li>
-                        <li data-ejeX='18'><i>Realme</i></li>
-                    </ul>
-                </div>
-                <h2 class='titular'>${monthInWords}<span class="scnd-font-color"> ${year}</span></h2>
-            </div>
-
-            <div class="bar-chart-block block">
-                <h2 class='titular'>Number of products still stored</h2>
-                <div class='grafico bar-chart'>
-                    <ul class='eje-y'>
-                        <li data-ejeY='60'></li>
-                        <li data-ejeY='45'></li>
-                        <li data-ejeY='30'></li>
-                        <li data-ejeY='15'></li>
-                        <li data-ejeY='0'></li>
-                    </ul>
-                    <ul class='eje-x'>
-                        <li data-ejeX='37'><i>Iphone</i></li>
-                        <li data-ejeX='56'><i>Samsung</i></li>
-                        <li data-ejeX='25'><i>Xiaomi</i></li>
-                        <li data-ejeX='18'><i>Realme</i></li>
-                    </ul>
-                </div>
-                <h2 class='titular'>${monthInWords}<span class="scnd-font-color"> ${year}</span></h2>
-            </div>
-
         </div>
+        <div class="products-row">
+            <div class="product-cell" id="donutchart" style="height: 500px; width: 49%; display: inline-block;"></div>
+            <div class="product-cell" id="curve_chart" style="height: 500px; width: 50%; display: inline-block;"></div>
+        </div>
+        <div class="products-row" id="table_div" style="height: 200px; width: 99%;"></div>
     </div>
 </html>

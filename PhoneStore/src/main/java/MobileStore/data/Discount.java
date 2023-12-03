@@ -23,6 +23,8 @@ public class Discount implements Serializable {
     @GeneratedValue( strategy=GenerationType.AUTO )
     private Long discountID;
     
+    private String name;
+    
     private int discount;
     
     @Temporal(TemporalType.DATE)
@@ -32,6 +34,14 @@ public class Discount implements Serializable {
     private Date dateEnd;
 
     public Discount() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getDiscountID() {
@@ -66,11 +76,27 @@ public class Discount implements Serializable {
         this.dateEnd = dateEnd;
     }
 
+    public Discount(String name, int discount, Date dateStart, Date dateEnd) {
+        this.name = name;
+        this.discount = discount;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+    }
+
     public Discount(Long discountID, int discount, Date dateStart, Date dateEnd) {
         this.discountID = discountID;
         this.discount = discount;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
     }
+
+    public Discount(Long discountID, String name, int discount, Date dateStart, Date dateEnd) {
+        this.discountID = discountID;
+        this.name = name;
+        this.discount = discount;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+    }
+    
     
 }

@@ -18,54 +18,47 @@
     <body>
         <header>
             <nav class="navbar navbar-expand-custom navbar-mainbg">
-                <a class="navbar-brand navbar-logo" href="Home.jsp"><span><i class="fa-solid fa-shop"></i>MOBILE STORE</span></a>
+                <a class="navbar-brand navbar-logo" href="CustomerServlet"><span><i class="fa-solid fa-shop"></i>MOBILE STORE</span></a>
                 <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars text-white"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
                         <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
-                        <% if (session.getAttribute("Home") == null || (Boolean) session.getAttribute("Home") == false) { %>
+                        <% if (session.getAttribute("wn_Home") == null || (Boolean) session.getAttribute("wn_Home") == false) { %>
                         <li class="nav-item" id= 'Home'>
                         <% } else { %>
                         <li class="nav-item active" id= 'Home'>
                         <% } %>
-                            <a class="nav-link" href="Home.jsp"><i class="fa-solid fa-mobile"></i>Home</a>
+                            <a class="nav-link" href="customer_Home.jsp"><i class="fa-solid fa-mobile"></i>Home</a>
                         </li>
-                        <% if (session.getAttribute("Gif") == null || (Boolean) session.getAttribute("Gif") == false) { %>
-                        <li class="nav-item" id= 'Gif'>
-                        <% } else { %>
-                        <li class="nav-item active" id= 'Gif'>
-                        <% } %>
-                            <a class="nav-link" href="javascript:void(0)"><i class="fa-solid fa-gift"></i>Promotion</a>
-                        </li>
-                        <% if (session.getAttribute("Order") == null || (Boolean) session.getAttribute("Order") == false) { %>
-                        <li class="nav-item" id= 'Order'>
-                        <% } else { %>
-                        <li class="nav-item active" id= 'Order'>
-                        <% } %>
-                            <a class="nav-link" href="Product_details.jsp"><i class="fa-regular fa-file-lines"></i>Purchase Order</a>
-                        </li>
-                        <% if (session.getAttribute("Cart") == null || (Boolean) session.getAttribute("Cart") == false) { %>
+                        <% if (session.getAttribute("wn_Cart") == null || (Boolean) session.getAttribute("wn_Cart") == false) { %>
                         <li class="nav-item" id= 'Cart'>
                         <% } else { %>
                         <li class="nav-item active" id= 'Cart'>
                         <% } %>
-                            <a class="nav-link" href="javascript:void(0);"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+                            <a class="nav-link" href="customer_cart.jsp"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
                         </li>
-                        <% if (session.getAttribute("User") == null || (Boolean) session.getAttribute("User") == false) { %>
+                        <% if (session.getAttribute("wn_Comment") == null || (Boolean) session.getAttribute("wn_Comment") == false) { %>
+                        <li class="nav-item" id= 'InfShop'>
+                        <% } else { %>
+                        <li class="nav-item active" id= 'Comment'>
+                        <% } %>
+                            <a class="nav-link" href="customer_comment.jsp"><i class="fa-regular fa-comment-dots"></i>Comment</a>
+                        </li>
+                        <% if (session.getAttribute("wn_User") == null || (Boolean) session.getAttribute("wn_User") == false) { %>
                         <li class="nav-item" id= 'User'>
                         <% } else { %>
                         <li class="nav-item active" id= 'User'>
                         <% } %>
-                            <a class="nav-link" href="javascript:void(0);"><i class="fa-solid fa-user"></i>Log in/Sign up</a>
+                            <a class="nav-link" href="customer_profile.jsp"><i class="fa-solid fa-user"></i>User</a>
                         </li>
-                        <% if (session.getAttribute("InfShop") == null || (Boolean) session.getAttribute("InfShop") == false) { %>
+                        <% if (session.getAttribute("wn_InfShop") == null || (Boolean) session.getAttribute("wn_InfShop") == false) { %>
                         <li class="nav-item" id= 'InfShop'>
                         <% } else { %>
                         <li class="nav-item active" id= 'InfShop'>
                         <% } %>
-                            <a class="nav-link" href="javascript:void(0);"><i class="fa-solid fa-circle-info"></i>Shop</a>
+                            <a class="nav-link" href="admin_profile.jsp"><i class="fa-solid fa-circle-info"></i>Shop</a>
                         </li>
                     </ul>
                 </div>

@@ -5,6 +5,8 @@
 package MobileStore.data;
 
 import java.io.Serializable;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -27,7 +29,7 @@ public class Cart implements Serializable {
     @GeneratedValue( strategy=GenerationType.AUTO )
     private Long cartID;
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<LineItem> lslineItems;
     
     @ManyToOne
@@ -80,5 +82,10 @@ public class Cart implements Serializable {
         this.customer = customer;
         this.calculateTotalPrice();
     }
-    
+
+    public Cart(User customer) {
+        this.customer = customer;
+        this.lslineItems = new ArrayList<>();
+        this.totalPrice = Float.valueOf(0);
+    }
 }

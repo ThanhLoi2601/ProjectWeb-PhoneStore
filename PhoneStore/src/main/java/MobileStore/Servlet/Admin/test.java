@@ -5,13 +5,19 @@
 package MobileStore.Servlet.Admin;
 
 import MobileStore.DB.AccountDB;
+import MobileStore.DB.DiscountDB;
+import MobileStore.DB.ProductDB;
 import MobileStore.DB.UserDB;
 import MobileStore.data.Account;
+import MobileStore.data.Discount;
+import MobileStore.data.Product;
 import MobileStore.data.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -33,19 +39,29 @@ public class test extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.text.ParseException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, NoSuchAlgorithmException {
+            throws ServletException, IOException, SQLException, NoSuchAlgorithmException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        User u = new User("Alenk", "thanhloi@gmail.com", "TPHCM", "09873682991", Boolean.FALSE);
-        Account a = new Account("alenk2601", "thanhloi", u);
-        UserDB.insert(u);
+        //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        //DiscountDB.insert(new Discount("25/12", 30, dateFormat.parse("2023-12-25"), dateFormat.parse("2023-12-30")));
+//        Product product = new Product("Galaxy A53",Boolean.TRUE, "Samsung", 100, 5, "ROM 64GB",Float.valueOf("15"),"img/Samsung/Samsung-Galaxy-A53.jpg");
+//        ProductDB.insert(product);
+        User user = new User("Thanhloi", "21110234@student.hcmute.edu.vn", "TPHCM", "085828829927", Boolean.FALSE);
+        if (UserDB.emailExists(user.getEmail()) == false) {
+            UserDB.insert(user);
+        }
+        Account account = new Account("loinguyen", "987654321", user);
+        AccountDB.insert(account);
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet test</title>");            
+            out.println("<title>Servlet test</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet test at " + request.getContextPath() + "</h1>");
@@ -68,7 +84,7 @@ public class test extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException | NoSuchAlgorithmException ex) {
+        } catch (SQLException | NoSuchAlgorithmException | ParseException ex) {
             Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -86,7 +102,7 @@ public class test extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException | NoSuchAlgorithmException ex) {
+        } catch (SQLException | NoSuchAlgorithmException | ParseException ex) {
             Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
