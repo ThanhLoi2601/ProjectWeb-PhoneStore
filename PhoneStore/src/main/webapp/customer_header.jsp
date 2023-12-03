@@ -18,7 +18,7 @@
     <body>
         <header>
             <nav class="navbar navbar-expand-custom navbar-mainbg">
-                <a class="navbar-brand navbar-logo" href="CustomerServlet"><span><i class="fa-solid fa-shop"></i>MOBILE STORE</span></a>
+                <a class="navbar-brand navbar-logo" href="CustomerServlet" ><span style="font-size: 20px"><i class="fa-solid fa-shop"></i>MOBILE STORE</span></a>
                 <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars text-white"></i>
                 </button>
