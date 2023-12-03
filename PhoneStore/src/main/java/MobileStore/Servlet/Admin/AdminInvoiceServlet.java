@@ -8,6 +8,7 @@ import MobileStore.DB.CartDB;
 import MobileStore.DB.InvoiceDB;
 import MobileStore.data.Invoice;
 import MobileStore.data.LineItem;
+import MobileStore.data.User;
 import MobileStore.util.MailUtilGmail;
 import java.io.IOException;
 import java.util.List;
@@ -33,7 +34,8 @@ public class AdminInvoiceServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String url = "/Admin.jsp";
         String ManageInvoices = request.getParameter("ManageInvoices");
-        if (ManageInvoices != null && ManageInvoices.equals("sent")) {
+        User user = (User) session.getAttribute("user");
+        if (user != null && ManageInvoices != null && ManageInvoices.equals("sent")) {
             String invoiceID = request.getParameter("invoiceID");
             Invoice invoice = InvoiceDB.selectIDInvoice(invoiceID);
             // send email to user
@@ -48,9 +50,9 @@ public class AdminInvoiceServlet extends HttpServlet {
                 detail += "Quanlity: " + li.getQuanlity() + "\n";
                 detail += "Price: $" + li.getItem().getPrice() + "\n";
             }
-            if (invoice.getDiscount() != null){
+            if (invoice.getDiscount() != null) {
                 detail += "\nDiscount: " + invoice.getDiscount().getDiscount() + "%\n";
-            }         
+            }
             detail += "Amount: $" + invoice.getTotalInvoice() + "\n";
             detail += "Payment Method: " + invoice.getPayMethod().getMethod() + "\n";
 

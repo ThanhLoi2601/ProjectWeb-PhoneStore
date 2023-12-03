@@ -84,8 +84,7 @@
                     </a>
                 </div>
             </div>
-            <% if (session.getAttribute("sidebar-list") == null || session.getAttribute("sidebar-list").equals("Products")) {
-                    %>           
+            <% if (session.getAttribute("sidebar-list") == null || session.getAttribute("sidebar-list").equals("Products")) {%>           
             <%@include file="admin_products.jsp" %>
             <% } else if (session.getAttribute("sidebar-list").equals("Promotion")) {%>
             <%@include file="admin_discounts.jsp" %>

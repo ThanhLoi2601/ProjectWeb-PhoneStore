@@ -8,6 +8,7 @@ import MobileStore.DB.DiscountDB;
 import MobileStore.DB.InvoiceDB;
 import MobileStore.data.Discount;
 import MobileStore.data.Invoice;
+import MobileStore.data.User;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -40,7 +41,8 @@ public class AdminDiscountServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String ManageDiscounts = request.getParameter("ManageDiscounts");
         System.out.println(ManageDiscounts);
-        if (ManageDiscounts != null && ManageDiscounts.equals("remove")) {
+        User user = (User) session.getAttribute("user");
+        if (user != null && ManageDiscounts != null && ManageDiscounts.equals("remove")) {
             request.setAttribute("ManageDiscounts", ManageDiscounts);
             String IDUpdate = request.getParameter("discountID");
             Discount discount = DiscountDB.selectIDDiscount(IDUpdate);
@@ -84,7 +86,7 @@ public class AdminDiscountServlet extends HttpServlet {
                 try {
                     Date start = dateFormat.parse(date_start);
                     Date end = dateFormat.parse(end_date);
-                    if (start == null || end == null || end.compareTo(start) < 0) {
+                    if (date_start == null || end_date == null || date_start.isEmpty() || end_date.isEmpty() || end.compareTo(start) < 0) {
                         start = new Date();
                         end = new Date();
                     }

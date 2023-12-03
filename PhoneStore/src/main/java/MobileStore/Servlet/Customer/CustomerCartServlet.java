@@ -42,7 +42,7 @@ public class CustomerCartServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String change_cart = request.getParameter("change_cart");
         Cart cart = (Cart) session.getAttribute("cart");
-        if (change_cart.equals("remove")) {
+        if (change_cart!= null && change_cart.equals("remove")) {
             String lineItemID = request.getParameter("lineItemID");
             List<LineItem> lsln = cart.getLslineItems();
             LineItem ln_save = null;
@@ -69,15 +69,18 @@ public class CustomerCartServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String change_cart = request.getParameter("change_cart");
-        if (change_cart.equals("add")) {
+        if (change_cart!= null && change_cart.equals("add")) {
             try {
                 add_to_cart(request, response);
+                return;
             } catch (SQLException ex) {
                 Logger.getLogger(CustomerCartServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (change_cart.equals("update")) {
+        } else if (change_cart!= null && change_cart.equals("update")) {
             update_cart(request, response);
+            return;
         }
+        getServletContext().getRequestDispatcher("/customer_cart.jsp").forward(request, response);
     }
 
     private void add_to_cart(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException, SQLException {

@@ -43,7 +43,7 @@ public class CustomerCheckoutServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         Invoice invoice = (Invoice) session.getAttribute("invoice");
-        if (invoice != null) {
+        if (invoice != null && user!=null) {
             try {
                 InvoiceDB.insert(invoice);
                 List<Product>  lsProduct_cmt = (List<Product>) session.getAttribute("lsProduct_cmt");
@@ -61,6 +61,8 @@ public class CustomerCheckoutServlet extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(CustomerCheckoutServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else if(user==null){
+            url = "/Login.jsp";
         }
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }

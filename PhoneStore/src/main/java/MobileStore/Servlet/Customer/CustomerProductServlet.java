@@ -41,7 +41,7 @@ public class CustomerProductServlet extends HttpServlet {
         String url = "/customer_products.jsp";
         String done = request.getParameter("done");
 
-        if (done.equals("show_product")) {
+        if (done!= null && done.equals("show_product")) {
             String typeProduct = request.getParameter("typeProduct");
             List<Product> lsproduct = null;
             List<Product> lsproductupdate = new ArrayList<>();
@@ -88,7 +88,7 @@ public class CustomerProductServlet extends HttpServlet {
                 }
             }
             session.setAttribute("products", lsproductupdate);
-        } else if (done.equals("details")) {
+        } else if (done!= null && done.equals("details")) {
             String productCode = request.getParameter("productCode");
             Product product = ProductDB.selectIDProduct(productCode);
             List<Comment> comments = CommentDB.selectComment(productCode);

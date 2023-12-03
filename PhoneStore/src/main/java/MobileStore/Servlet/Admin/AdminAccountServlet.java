@@ -39,43 +39,46 @@ public class AdminAccountServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String url = "/Admin.jsp";
         String ManageAccounts = request.getParameter("ManageAccounts");
-        if (ManageAccounts != null && ManageAccounts.equals("remove")) {
+        User user = (User) session.getAttribute("user");
+        if (user != null && ManageAccounts != null && ManageAccounts.equals("remove")) {
             String IDAccount = request.getParameter("accountID");
             Account account = AccountDB.selectIDAccount(IDAccount);
-            AccountDB.delete(account);
+            if (account != null) {
+                AccountDB.delete(account);
 
-            // send email to user
-            String to = account.getUser().getEmail();
-            String from = "nguyenthanhloi260303@gmail.com";
-            String subject = "Notification of deleting your account";
-            String body = "Dear " + account.getUser().getName() + ",\n\n"
-                    + "Your account has been deleted by us. " + "\n"
-                    + "If you need to log in, please register a new account before logging in" + "\n\n"
-                    + "Thank you;\n"
-                    + "Thanh Loi\n"
-                    + "Mobile Store";
-            boolean isBodyHTML = false;
-            try {
-                MailUtilGmail.sendMail(to, from, subject, body, isBodyHTML);
-                String message = "Successful delete account of username: " + account.getUsername() + " !";
-                request.setAttribute("message", message);
-            } catch (MessagingException e) {
-                String errorMessage
-                        = "ERROR: Unable to send email. "
-                        + "Check Tomcat logs for details.<br>"
-                        + "ERROR MESSAGE: " + e.getMessage();
-                request.setAttribute("message", errorMessage);
-                this.log(
-                        "Unable to send email. \n"
-                        + "Here is the email you tried to send: \n"
-                        + "=====================================\n"
-                        + "TO: " + account.getUser().getEmail() + "\n"
-                        + "FROM: " + from + "\n"
-                        + "SUBJECT: " + subject + "\n\n"
-                        + body + "\n\n");
+                // send email to user
+                String to = account.getUser().getEmail();
+                String from = "nguyenthanhloi260303@gmail.com";
+                String subject = "Notification of deleting your account";
+                String body = "Dear " + account.getUser().getName() + ",\n\n"
+                        + "Your account has been deleted by us. " + "\n"
+                        + "If you need to log in, please register a new account before logging in" + "\n\n"
+                        + "Thank you;\n"
+                        + "Thanh Loi\n"
+                        + "Mobile Store";
+                boolean isBodyHTML = false;
+                try {
+                    MailUtilGmail.sendMail(to, from, subject, body, isBodyHTML);
+                    String message = "Successful delete account of username: " + account.getUsername() + " !";
+                    request.setAttribute("message", message);
+                } catch (MessagingException e) {
+                    String errorMessage
+                            = "ERROR: Unable to send email. "
+                            + "Check Tomcat logs for details.<br>"
+                            + "ERROR MESSAGE: " + e.getMessage();
+                    request.setAttribute("message", errorMessage);
+                    this.log(
+                            "Unable to send email. \n"
+                            + "Here is the email you tried to send: \n"
+                            + "=====================================\n"
+                            + "TO: " + account.getUser().getEmail() + "\n"
+                            + "FROM: " + from + "\n"
+                            + "SUBJECT: " + subject + "\n\n"
+                            + body + "\n\n");
+                }
+                List<Account> accounts = AccountDB.selectAllAccount();
+                session.setAttribute("accounts", accounts);
             }
-            List<Account> accounts = AccountDB.selectAllAccount();
-            session.setAttribute("accounts", accounts);
         }
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
@@ -142,7 +145,7 @@ public class AdminAccountServlet extends HttpServlet {
                 } catch (SQLException ex) {
                     Logger.getLogger(AdminAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } else{
+            } else {
                 User u = UserDB.selectMailUser(user.getEmail());
                 user.setID(u.getID());
                 UserDB.update(user);

@@ -11,6 +11,7 @@ import MobileStore.DB.ProductDB;
 import MobileStore.data.Cart;
 import MobileStore.data.Invoice;
 import MobileStore.data.Product;
+import MobileStore.data.User;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -47,7 +48,8 @@ public class AdminProductServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String ManageProducts = request.getParameter("ManageProducts");
         System.out.println(ManageProducts);
-        if (ManageProducts != null && ManageProducts.equals("remove")) {
+        User user = (User) session.getAttribute("user");
+        if (user != null && ManageProducts != null && ManageProducts.equals("remove")) {
             request.setAttribute("ManageProducts", ManageProducts);
             String IDUpdate = request.getParameter("productID");
             Product product = ProductDB.selectIDProduct(IDUpdate);
