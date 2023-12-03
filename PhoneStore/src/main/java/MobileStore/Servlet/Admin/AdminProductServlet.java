@@ -16,7 +16,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -49,30 +51,39 @@ public class AdminProductServlet extends HttpServlet {
             request.setAttribute("ManageProducts", ManageProducts);
             String IDUpdate = request.getParameter("productID");
             Product product = ProductDB.selectIDProduct(IDUpdate);
-            
+
             List<Cart> lsCart = CartDB.selectByProduct(product);
-            if (lsCart == null || lsCart.isEmpty()){
+            if (lsCart == null || lsCart.isEmpty()) {
                 ProductDB.delete(product);
-            }else{
+            } else {
                 String strInvoices = "";
-                for (Cart cart : lsCart){
+                for (Cart cart : lsCart) {
                     Invoice invoice = InvoiceDB.selectByCart(cart);
-                    if(invoice != null){
-                        strInvoices += " Invoice " + invoice.getInvoiceID()+ ", ";
+                    if (invoice != null) {
+                        strInvoices += " Invoice " + invoice.getInvoiceID() + ", ";
                     }
                 }
 
-                if (strInvoices.equals("")){
+                if (strInvoices.equals("")) {
                     String message = "Currently the product cannot be deleted, please disable the product - " + product.getName();
                     request.setAttribute("message", message);
-                }else{
+                } else {
                     String message = "Please disable product or delete " + strInvoices + "before deleting this product - " + product.getName();
                     request.setAttribute("message", message);
                 }
             }
-            
+
             List<Product> products = ProductDB.selectAllProduct();
             session.setAttribute("products", products);
+        } else if (ManageProducts != null && ManageProducts.equals("filter")) {
+            request.setAttribute("ManageProducts", ManageProducts);
+            String done = request.getParameter("done");
+            if (done.equals("rest")) {
+                request.setAttribute("filter_Category", "all");
+                request.setAttribute("filter_Status", "all");
+                List<Product> products = ProductDB.selectAllProduct();
+                session.setAttribute("products", products);
+            }
         }
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
@@ -133,10 +144,49 @@ public class AdminProductServlet extends HttpServlet {
                         Logger.getLogger(AdminDiscountServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                List<Product> products = ProductDB.selectAllProduct();
+                session.setAttribute("products", products);
+                System.out.println(request.getParameter("image"));
+            } else if (ManageProducts.equals("filter")) {
+                String done = request.getParameter("done");
+                if (done.equals("apply")) {
+                    String filter_Category = request.getParameter("filter_Category");
+                    String filter_Status = request.getParameter("filter_Status");
+                    Boolean status = null;
+                    if (filter_Status.equals("Active")) {
+                        status = true;
+                    } else if (filter_Status.equals("Disabled")) {
+                        status = false;
+                    }
+                    List<Product> products = ProductDB.selectAllProduct();
+                    List<Product> products_update = new ArrayList<>();
+                    if (status != null && !filter_Category.equals("all")) {
+                        for (Product p : products) {
+                            if (Objects.equals(p.getStatus(), status) && p.getType().equals(filter_Category)) {
+                                products_update.add(p);
+                            }
+                        }
+                    } else if (status != null) {
+                        for (Product p : products) {
+                            if (Objects.equals(p.getStatus(), status)) {
+                                products_update.add(p);
+                            }
+                        }
+                    } else if (!filter_Category.equals("all")) {
+                        for (Product p : products) {
+                            if (p.getType().equals(filter_Category)) {
+                                products_update.add(p);
+                            }
+                        }
+                    }else{
+                        products_update = products;
+                    }
+                    request.setAttribute("filter_Category", filter_Category);
+                    request.setAttribute("filter_Status", filter_Status);
+                    session.setAttribute("products", products_update);
+                }
             }
-            List<Product> products = ProductDB.selectAllProduct();
-            session.setAttribute("products", products);
-            System.out.println(request.getParameter("image"));
+
         }
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }

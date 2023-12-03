@@ -17,35 +17,36 @@
             </form>
         </div>
         <div class="app-content-actions">
-            <input class="search-bar" placeholder="Search..." type="text">
             <span style="color: yellow;">${message}</span>
             <div class="app-content-actions-wrapper">
                 <div class="filter-button-wrapper">
                     <button class="action-button filter jsFilter"><span>Filter</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></button>
-                    <div class="filter-menu">
+                    <form action="AdminProduct" method="post" class="filter-menu">
                         <label>Category</label>
-                        <select>
-                            <option>All Categories</option>
-                            <option>Iphone</option>                     
-                            <option>Samsung</option>
-                            <option>Realme</option>
-                            <option>Xiaomi</option>
+                        <select name="filter_Category">
+                            <option value="all" ${filter_Category == 'all' ? 'selected' : ''}>All Categories</option>
+                            <option value="Iphone" ${filter_Category == 'Iphone' ? 'selected' : ''}>Iphone</option>                     
+                            <option value="Samsung" ${filter_Category == 'Samsung' ? 'selected' : ''}>Samsung</option>
+                            <option value="Realme" ${filter_Category == 'Realme' ? 'selected' : ''}>Realme</option>
+                            <option value="Xiaomi" ${filter_Category == 'Xiaomi' ? 'selected' : ''}>Xiaomi</option>
                         </select>
                         <label>Status</label>
-                        <select>
-                            <option>All Status</option>
-                            <option>Active</option>
-                            <option>Disabled</option>
+                        <select name="filter_Status">
+                            <option value="all" ${filter_Status == 'all' ? 'selected' : ''}>All Status</option>
+                            <option value="Active" ${filter_Status == 'Active' ? 'selected' : ''}>Active</option>
+                            <option value="Disabled" ${filter_Status == 'Disabled' ? 'selected' : ''}>Disabled</option>
                         </select>
                         <div class="filter-menu-buttons">
-                            <button class="filter-button reset">
+                            <a href="AdminProduct?ManageProducts=filter&amp;done=rest" class="filter-button reset" style="text-decoration: none;">
                                 Reset
-                            </button>
+                            </a>
                             <button class="filter-button apply">
                                 Apply
                             </button>
+                            <input type="hidden" name="ManageProducts" value="filter"/>
+                            <input type="hidden" name="done" value="apply"/>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <button class="action-button list active" title="List View">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
@@ -107,7 +108,7 @@
                                 <option value="disabled" ${item.status == false ? 'selected' : ''}>Disabled</option>
                             </select>
                         </div>   
-                                <div class="product-cell sales"><span class="cell-label">Sales:</span><input pattern="\d+" min ='0' placeholder="Sales..." type="number" name="sales" value="${item.sale}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);" required></div>
+                        <div class="product-cell sales"><span class="cell-label">Sales:</span><input pattern="\d+" min ='0' placeholder="Sales..." type="number" name="sales" value="${item.sale}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);" required></div>
                         <div class="product-cell stock"><span class="cell-label">Stock:</span><input pattern="\d+" min ='0' placeholder="Stock..." type="number" name="stock" value="${item.stock}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);" required></div>
                         <div class="product-cell price"><span class="cell-label">Price:</span>$<input pattern="\d+" min ='0' placeholder="Price..." type="number" name="price" value="${item.price}" style="width: 100px;background-color: var(--app-content-secondary-color); border: 1px solid var(--app-content-secondary-color); color: var(--app-content-main-color);" required></div>
                         <div class="product-cell update" style="text-decoration: none;"><span class="cell-label">Update:</span><button class="sort-button">
