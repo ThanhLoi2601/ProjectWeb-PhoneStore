@@ -30,7 +30,7 @@
                         <div class="box">
                             <img src="${lineItem.item.image}">
                             <div class="content">
-                                <h3><a href="CustomerProduct?done=details&amp;productCode=<c:out value='${lineItem.item.productID}'/>">${lineItem.item.name}</a></h3>
+                                <h3><a href="CustomerProduct?done=details&amp;productCode=<c:out value='${lineItem.item.productID}'/>" style="text-decoration: none;">${lineItem.item.name}</a></h3>
                                 <h4>Price: $${lineItem.item.price}</h4>
                                 <form action="CustomerCart" method="post" class="quantity-section">
                                     <div class="quantity-controls">

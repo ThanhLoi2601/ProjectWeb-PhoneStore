@@ -39,7 +39,7 @@
 
                                 <div class="media-body">
                                     <h6 class="media-title font-weight-semibold">
-                                        <a href="#" data-abc="true">${product.name}</a>
+                                        <a href="CustomerProduct?done=details&amp;productCode=<c:out value='${product.productID}'/>" data-abc="true">${product.name}</a>
                                     </h6>
 
                                     <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">

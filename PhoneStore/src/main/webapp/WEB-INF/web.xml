@@ -127,5 +127,7 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>Login.jsp</welcome-file>
+        <welcome-file>customer_Home.jsp</welcome-file>
+        <welcome-file>Admin.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
