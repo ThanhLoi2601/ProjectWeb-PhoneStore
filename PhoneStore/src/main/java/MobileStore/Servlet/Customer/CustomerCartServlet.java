@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -93,22 +94,23 @@ public class CustomerCartServlet extends HttpServlet {
             Product product = ProductDB.selectIDProduct(productCode);
             boolean test_add = false;
             List<LineItem> lsln = cart.getLslineItems();
+            List<LineItem> lslnUpdate = new ArrayList<>();
             for (LineItem ln : lsln) {
                 if (Objects.equals(ln.getItem().getProductID(), product.getProductID())) {
                     ln.setQuanlity(ln.getQuanlity() + 1);
                     test_add = true;
-                    break;
                 }
+                lslnUpdate.add(ln);
             }
             System.out.println(product.getName() + " " + test_add);
             if (test_add == false) {
                 LineItem ln = new LineItem(product, 1);
-                lsln.add(ln);
-                for (LineItem l : lsln) {
+                lslnUpdate.add(ln);
+                for (LineItem l : lslnUpdate) {
                     System.out.println(l.getItem().getName() + " " + l.getQuanlity());
                 }
             }
-            cart.setLslineItems(lsln);
+            cart.setLslineItems(lslnUpdate);
             cart.calculateTotalPrice();
             CartDB.update(cart);
             cart = CartDB.selectIDCart(cart.getCartID().toString());
