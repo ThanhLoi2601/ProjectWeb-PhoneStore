@@ -40,11 +40,12 @@ body {
 	transform: scale(1.01);
 }
 .box img {
-    width: 300px;
+    width: 200px;
     height: 210px;
     object-fit: cover;
     padding: 0px 20px 30px;
     margin: 10px;
+    
 }
 .content {
 	padding: 20px;

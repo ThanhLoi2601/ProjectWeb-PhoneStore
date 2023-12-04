@@ -59,7 +59,6 @@ public class CustomerCommentServlet extends HttpServlet {
                         break;
                     }
                 }
-                
                 session.setAttribute("lsProduct_cmt", lsProduct_cmt);
             } catch (SQLException ex) {
                 Logger.getLogger(CustomerCommentServlet.class.getName()).log(Level.SEVERE, null, ex);
