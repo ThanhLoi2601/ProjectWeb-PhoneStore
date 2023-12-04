@@ -7,6 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <%
+        session.setAttribute("user", null);
+    %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +24,6 @@
             <div class="form-container sign-up-container">
                 <form action="Register" method="post">
                     <h1>Create Account</h1>
-
-
                     <span style="color: red;">${message}.</span>
                     <input id="Name" name="name" type="text" placeholder="Name"/>
                     <input id="email" name="email" type="email" placeholder="Email" />

@@ -42,7 +42,7 @@ public class AdminDiscountServlet extends HttpServlet {
         String ManageDiscounts = request.getParameter("ManageDiscounts");
         System.out.println(ManageDiscounts);
         User user = (User) session.getAttribute("user");
-        if (user != null && ManageDiscounts != null && ManageDiscounts.equals("remove")) {
+        if (user != null && user.getIsManager() && ManageDiscounts != null && ManageDiscounts.equals("remove")) {
             request.setAttribute("ManageDiscounts", ManageDiscounts);
             String IDUpdate = request.getParameter("discountID");
             Discount discount = DiscountDB.selectIDDiscount(IDUpdate);

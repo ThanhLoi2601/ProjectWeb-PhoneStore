@@ -76,6 +76,7 @@ public class RegisterController extends HttpServlet {
                                 if (acc.getUser().getIsManager()) {
                                     response.sendRedirect("/PhoneStore/Admin?sidebar-list=Products");
                                 } else {
+                                    session.setAttribute("lsProduct_cmt", null);
                                     response.sendRedirect("/PhoneStore/CustomerServlet");
                                 }
                                 return;

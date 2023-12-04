@@ -13,7 +13,7 @@
             <h1 class="app-content-headerText"><i class="fa-solid fa-shekel-sign"></i> PRODUCTS <i class="fa-solid fa-mobile-screen-button"></i></h1>
             <form action="AdminProduct" method="post">
                 <button class="app-content-headerButton">Add Product</button>
-                <input type="hidden" name="ManageProducts" value="open_add"/>">
+                <input type="hidden" name="ManageProducts" value="open_add"/>
             </form>
         </div>
         <div class="app-content-actions">

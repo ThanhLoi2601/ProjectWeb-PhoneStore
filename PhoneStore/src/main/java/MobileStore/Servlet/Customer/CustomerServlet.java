@@ -37,7 +37,7 @@ public class CustomerServlet extends HttpServlet {
         String url = "/customer_Home.jsp";
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        session.setAttribute("lsProduct_cmt", null);
+        
         if (user != null) {
             Cart cart = null;
             List<Cart> carts = CartDB.selectCart(user.getID());

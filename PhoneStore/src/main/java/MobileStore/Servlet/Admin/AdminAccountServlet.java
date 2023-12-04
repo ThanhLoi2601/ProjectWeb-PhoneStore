@@ -40,7 +40,7 @@ public class AdminAccountServlet extends HttpServlet {
         String url = "/Admin.jsp";
         String ManageAccounts = request.getParameter("ManageAccounts");
         User user = (User) session.getAttribute("user");
-        if (user != null && ManageAccounts != null && ManageAccounts.equals("remove")) {
+        if (user != null && user.getIsManager() && ManageAccounts != null && ManageAccounts.equals("remove")) {
             String IDAccount = request.getParameter("accountID");
             Account account = AccountDB.selectIDAccount(IDAccount);
             if (account != null) {

@@ -45,7 +45,7 @@ public class AdminServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("sidebar-list", sidebar_list);
         User user = (User) session.getAttribute("user");
-        if (user != null) {
+        if (user != null && user.getIsManager()) {
             if (sidebar_list.equals("Promotion")) {
                 List<Discount> discounts = DiscountDB.selectAllDiscount();
                 session.setAttribute("discounts", discounts);

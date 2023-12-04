@@ -35,7 +35,7 @@ public class AdminInvoiceServlet extends HttpServlet {
         String url = "/Admin.jsp";
         String ManageInvoices = request.getParameter("ManageInvoices");
         User user = (User) session.getAttribute("user");
-        if (user != null && ManageInvoices != null && ManageInvoices.equals("sent")) {
+        if (user != null && user.getIsManager() && ManageInvoices != null && ManageInvoices.equals("sent")) {
             String invoiceID = request.getParameter("invoiceID");
             Invoice invoice = InvoiceDB.selectIDInvoice(invoiceID);
             // send email to user

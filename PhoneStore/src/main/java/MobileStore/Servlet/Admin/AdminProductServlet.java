@@ -49,7 +49,7 @@ public class AdminProductServlet extends HttpServlet {
         String ManageProducts = request.getParameter("ManageProducts");
         System.out.println(ManageProducts);
         User user = (User) session.getAttribute("user");
-        if (user != null && ManageProducts != null && ManageProducts.equals("remove")) {
+        if (user != null && user.getIsManager() && ManageProducts != null && ManageProducts.equals("remove")) {
             request.setAttribute("ManageProducts", ManageProducts);
             String IDUpdate = request.getParameter("productID");
             Product product = ProductDB.selectIDProduct(IDUpdate);
