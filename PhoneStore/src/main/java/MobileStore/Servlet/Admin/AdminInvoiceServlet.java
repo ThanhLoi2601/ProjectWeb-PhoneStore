@@ -40,7 +40,7 @@ public class AdminInvoiceServlet extends HttpServlet {
             Invoice invoice = InvoiceDB.selectIDInvoice(invoiceID);
             // send email to user
             String to = invoice.getCart().getCustomer().getEmail();
-            String from = "nguyenthanhloi260303@gmail.com";
+            String from = "mobilestore13579011@gmail.com";
             String subject = "Confirm Invoice of you";
             String detail = "";
             detail += "Customer: " + invoice.getCart().getCustomer().getName() + "\n";

@@ -48,7 +48,7 @@ public class AdminAccountServlet extends HttpServlet {
 
                 // send email to user
                 String to = account.getUser().getEmail();
-                String from = "nguyenthanhloi260303@gmail.com";
+                String from = "mobilestore13579011@gmail.com";
                 String subject = "Notification of deleting your account";
                 String body = "Dear " + account.getUser().getName() + ",\n\n"
                         + "Your account has been deleted by us. " + "\n"
@@ -104,7 +104,7 @@ public class AdminAccountServlet extends HttpServlet {
             AccountDB.update(account);
             // send email to user
             String to = account.getUser().getEmail();
-            String from = "nguyenthanhloi260303@gmail.com";
+            String from = "mobilestore13579011@gmail.com";
             String subject = "Reset password of you";
             String body = "Dear " + account.getUser().getName() + ",\n\n"
                     + "Your password has been reset by us. " + "\n"
@@ -155,7 +155,7 @@ public class AdminAccountServlet extends HttpServlet {
                 AccountDB.insert(account);
                 // send email to user
                 String to = account.getUser().getEmail();
-                String from = "nguyenthanhloi260303@gmail.com";
+                String from = "mobilestore13579011@gmail.com";
                 String subject = "Account of you";
                 String body = "Dear " + account.getUser().getName() + ",\n\n"
                         + "Your account has been created by Admin. " + "\n"
