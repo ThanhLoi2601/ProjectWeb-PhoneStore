@@ -119,6 +119,7 @@ public class CustomerCartServlet extends HttpServlet {
             url = "/Login.jsp";
         }
         response.sendRedirect("/PhoneStore" + url);
+//        response.sendRedirect(url);
     }
 
     private void update_cart(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, ServletException, IOException {

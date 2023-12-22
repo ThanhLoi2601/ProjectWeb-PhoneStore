@@ -5,10 +5,12 @@
 package MobileStore.Servlet.Customer;
 
 import MobileStore.DB.CartDB;
+import MobileStore.DB.HistoryProductDB;
 import MobileStore.DB.InvoiceDB;
 import MobileStore.DB.PaymentMethodDB;
 import MobileStore.data.Cart;
 import MobileStore.data.Discount;
+import MobileStore.data.HistoryProduct;
 import MobileStore.data.Invoice;
 import MobileStore.data.LineItem;
 import MobileStore.data.PaymentMethod;
@@ -50,8 +52,16 @@ public class CustomerCheckoutServlet extends HttpServlet {
                 if(lsProduct_cmt == null)
                     lsProduct_cmt = new ArrayList<>();
                 for(LineItem ln : invoice.getCart().getLslineItems()){
-                    if(!lsProduct_cmt.contains(ln.getItem())){
+                    boolean test = false;
+                    for(Product p : lsProduct_cmt){
+                        if(p.getProductID().equals(ln.getItem().getProductID())){
+                            test = true;
+                            break;
+                        }
+                    }
+                    if(test==false){
                        lsProduct_cmt.add(ln.getItem()); 
+                       HistoryProductDB.insert(new HistoryProduct(ln.getItem(), user));
                     }
                 }
                 Cart cart = new Cart(user);

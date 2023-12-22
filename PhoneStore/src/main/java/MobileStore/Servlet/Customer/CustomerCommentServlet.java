@@ -5,9 +5,11 @@
 package MobileStore.Servlet.Customer;
 
 import MobileStore.DB.CommentDB;
+import MobileStore.DB.HistoryProductDB;
 import MobileStore.DB.ProductDB;
 import MobileStore.data.Cart;
 import MobileStore.data.Comment;
+import MobileStore.data.HistoryProduct;
 import MobileStore.data.Product;
 import MobileStore.data.User;
 import java.io.IOException;
@@ -53,9 +55,17 @@ public class CustomerCommentServlet extends HttpServlet {
             try {
                 CommentDB.insert(comment);
                 List<Product>  lsProduct_cmt = (List<Product>) session.getAttribute("lsProduct_cmt");
+                List<HistoryProduct> lsHistory_cmt = HistoryProductDB.selectHistoryProduct(user.getID().toString());
                 for(Product p : lsProduct_cmt){
                     if(p.getProductID().equals(product.getProductID())){
                         lsProduct_cmt.remove(p);
+                        for(HistoryProduct hp : lsHistory_cmt){
+                            if(hp.getProduct().getProductID().equals(hp.getProduct().getProductID())){
+                                HistoryProductDB.deleteByProduct_User(product,user);
+                                lsHistory_cmt.remove(hp);
+                                break;
+                            }
+                        }
                         break;
                     }
                 }

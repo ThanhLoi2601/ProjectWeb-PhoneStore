@@ -50,9 +50,11 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("password_save", password);
                     if (acc.getUser().getIsManager()) {
                         response.sendRedirect("/PhoneStore/Admin?sidebar-list=Products");
+//                        response.sendRedirect("/Admin?sidebar-list=Products");
                     } else {
                         session.setAttribute("lsProduct_cmt", null);
                         response.sendRedirect("/PhoneStore/CustomerServlet");
+//                        response.sendRedirect("/CustomerServlet");
                     }
                     return;
                 }
