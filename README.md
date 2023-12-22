@@ -1,12 +1,12 @@
 # ProjectWeb-PhoneStore
 1.1 Mô tả sơ lược về Website 
 Website bán điện thoại di động là website bán hàng về mặt hàng điện thoại với 4 thương hiệu chính là Samsung, Iphone, Realme, Xiaomi. Ngoài ra, còn có bán thêm các phụ kiện tùy vào từng hãng.
-Website được chia làm 2 chế độ người dùng chính:
-- Chế độ Khách hàng: dành cho khách hàng mua sắm điện thoại. Dưới đây là một vài tài khoản khách hàng đã đăng ký rồi:
-Username	Password
-luckyhihi	lucky123
-join 	123
-alenk	123456789
+- Website được chia làm 2 chế độ người dùng chính:
++ Chế độ Khách hàng: dành cho khách hàng mua sắm điện thoại. Dưới đây là một vài tài khoản khách hàng đã đăng ký rồi:
+* Username	Password
+* luckyhihi	lucky123
+* join 	123
+* alenk	123456789
 
 - Chế độ Chủ Shop (Admin): dành cho chủ Shop có thể truy cập vào web để có thể thao tác các sản phẩm và quản lý doanh số của shop mình.Tài khoản của Admin như sau:
 + Username: maser5342
