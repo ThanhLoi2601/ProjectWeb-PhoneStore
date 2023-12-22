@@ -6,10 +6,13 @@ package MobileStore.Servlet.Customer;
 
 import MobileStore.DB.CartDB;
 import MobileStore.DB.DiscountDB;
+import MobileStore.DB.HistoryProductDB;
 import MobileStore.DB.InvoiceDB;
 import MobileStore.DB.UserDB;
 import MobileStore.data.Cart;
 import MobileStore.data.Discount;
+import MobileStore.data.HistoryProduct;
+import MobileStore.data.Product;
 import MobileStore.data.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -60,6 +63,12 @@ public class CustomerServlet extends HttpServlet {
                     discountsUpdate.add(d);
                 }
             }
+            List<HistoryProduct> lsHistory_cmt = HistoryProductDB.selectHistoryProduct(user.getID().toString());
+            List<Product> lsProduct_cmt = new ArrayList<>();
+            for (HistoryProduct hp : lsHistory_cmt){
+                lsProduct_cmt.add(hp.getProduct());
+            }
+            session.setAttribute("lsProduct_cmt", lsProduct_cmt);
             session.setAttribute("discounts", discountsUpdate);
         }else{
             url = "/Login.jsp";

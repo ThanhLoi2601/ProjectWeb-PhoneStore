@@ -78,6 +78,7 @@ public class RegisterController extends HttpServlet {
                                 } else {
                                     session.setAttribute("lsProduct_cmt", null);
                                     response.sendRedirect("/PhoneStore/CustomerServlet");
+//                                    response.sendRedirect("/CustomerServlet");
                                 }
                                 return;
                             }
