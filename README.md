@@ -9,7 +9,7 @@ join 	123
 alenk	123456789
 
 - Chế độ Chủ Shop (Admin): dành cho chủ Shop có thể truy cập vào web để có thể thao tác các sản phẩm và quản lý doanh số của shop mình.Tài khoản của Admin như sau:
-+ Username: maser5342
+- + Username: maser5342
 + Password: 123456789
 1.2 Mô tả về chức năng bài toán
 1.2.1 Chức năng chung
