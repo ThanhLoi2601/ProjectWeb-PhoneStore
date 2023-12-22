@@ -1,9 +1,9 @@
 # ProjectWeb-PhoneStore
-1.1 Mô tả sơ lược về Website
+# 1.1 Mô tả sơ lược về Website
 
 Website bán điện thoại di động là nền tảng thương mại điện tử chuyên cung cấp các sản phẩm điện thoại từ 4 thương hiệu hàng đầu: Samsung, iPhone, Realme, Xiaomi. Ngoài ra, trang web cũng cung cấp phụ kiện điện thoại phù hợp với từng thương hiệu.
 
-Website được phân chia thành 2 chế độ người dùng chính:
+# Website được phân chia thành 2 chế độ người dùng chính:
 
 Chế độ Khách hàng: Dành cho người mua sắm điện thoại. Dưới đây là một số tài khoản khách hàng đã đăng ký:
 
