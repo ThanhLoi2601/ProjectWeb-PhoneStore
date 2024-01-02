@@ -24,4 +24,5 @@
 - Server: Tomcat 9.0.8
 - Database MySQL hosting trên AWS: mydatabase.ceorv57yblio.us-east-1.rds.amazonaws.com
 - IDE: Netbeans
-- Github: https://github.com/ThanhLoi2601/ProjectWeb-PhoneStore 
+- Github: https://github.com/ThanhLoi2601/ProjectWeb-PhoneStore
+- Website hosting: https://phonestore-sxmr.onrender.com/PhoneStore/ 
